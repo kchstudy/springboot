@@ -1,0 +1,73 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    view-names: html/*
+    prefix: classpath:/templates/
+    suffix: .html
+  config:
+    import: file:/blog/benggri/springboot/app.yml # C:\blog\benggri\springboot\app.yml 파일 생성 docs/app.yml 파일 참고
+logging:
+  file: /blog/benggri/springboot/logs/stdlog.log
+  pattern:
+    file: -%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx
+benggri:
+  springboot:
+    title: default
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      jndi-name: java:comp/env/jdbc/study
+      url: jdbc:postgresql://localhost:5432/study
+      username: study
+      password: study
+quartz:
+  scheduler-name: QuartzScheduler
+  properties:
+    org:
+      quartz:
+        threadPool:
+          threadCount: 5
+sever:
+  servletPath: /*
+  contextPath: /
+jwt:
+  secret: c3ByaW5nLWJvb3QtcHJvamVjdC1zcHJpbmctc2VjdXJpdHktYmxvZy1iZW5nZ3JpLXNwcmluZ2Jvb3QtY3VzdG9tLXNlY3JldDEK
+
+---
+
+spring:
+  profiles: local
+  thymeleaf:
+    cache: false
+benggri:
+  springboot:
+    title: default
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      jndi-name: java:comp/env/jdbc/study
+      url: jdbc:postgresql://localhost:5432/study
+      username: study
+      password: study
+
+---
+
+spring:
+  profiles: TEST
+  thymeleaf:
+    cache: false
+benggri:
+  springboot:
+    title: default
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      jndi-name: java:comp/env/jdbc/study
+      url: jdbc:postgresql://localhost:5432/study
+      username: study
+      password: study

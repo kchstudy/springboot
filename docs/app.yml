@@ -1,0 +1,5 @@
+# C:\blog\benggri\springboot\app.yml 파일 생성
+spring:
+  profiles:
+    active: local
+#    active: TEST
