@@ -28,4 +28,5 @@ public class MemberService {
         result.put("data", data);
         return result;
     }
+
 }

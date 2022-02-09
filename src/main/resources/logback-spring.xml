@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!--로그 파일 저장 위치-->
+    <property name="LOG_FILE" value="/blog/benggri/springboot/logs/springboot.log"/>
+
+    <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="blog.benggri.springboot" level="debug" additivity="false">
+        <!-- ref="appender name 지정" -->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLING-FILE"/>
+    </logger>
+
+    <logger name="org.springframework.core" >
+        <level value="info" />
+    </logger>
+    <logger name="org.springframework.beans" >
+        <level value="info" />
+    </logger>
+    <logger name="org.springframework.context" >
+        <level value="info" />
+    </logger>
+    <logger name="org.springframework.web" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.sqlonly" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.sqltiming" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.audit" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.resultset" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.resultsettable" >
+        <level value="info" />
+    </logger>
+    <logger name="jdbc.connection" >
+        <level value="info" />
+    </logger>
+
+<!-- 
+    <root level="debug">
+ -->
+<!-- 
+    <root level="info">
+ -->
+
+    <root level="warn">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLING-FILE"/>
+    </root>
+
+</configuration>
