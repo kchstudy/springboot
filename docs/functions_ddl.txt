@@ -1,0 +1,304 @@
+CREATE OR REPLACE FUNCTION public.armor(bytea, text[], text[])
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_armor$function$
+;
+
+CREATE OR REPLACE FUNCTION public.armor(bytea)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_armor$function$
+;
+
+CREATE OR REPLACE FUNCTION public.dearmor(text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_dearmor$function$
+;
+
+CREATE OR REPLACE FUNCTION public.crypt(text, text)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_crypt$function$
+;
+
+CREATE OR REPLACE FUNCTION public.decrypt(bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_decrypt$function$
+;
+
+CREATE OR REPLACE FUNCTION public.decrypt_iv(bytea, bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_decrypt_iv$function$
+;
+
+CREATE OR REPLACE FUNCTION public.digest(text, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_digest$function$
+;
+
+CREATE OR REPLACE FUNCTION public.digest(bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_digest$function$
+;
+
+CREATE OR REPLACE FUNCTION public.encrypt(bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_encrypt$function$
+;
+
+CREATE OR REPLACE FUNCTION public.encrypt_iv(bytea, bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_encrypt_iv$function$
+;
+
+CREATE OR REPLACE FUNCTION public.gen_random_bytes(integer)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_random_bytes$function$
+;
+
+CREATE OR REPLACE FUNCTION public.gen_random_uuid()
+ RETURNS uuid
+ LANGUAGE c
+ PARALLEL SAFE
+AS '$libdir/pgcrypto', $function$pg_random_uuid$function$
+;
+
+CREATE OR REPLACE FUNCTION public.gen_salt(text)
+ RETURNS text
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_gen_salt$function$
+;
+
+CREATE OR REPLACE FUNCTION public.gen_salt(text, integer)
+ RETURNS text
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_gen_salt_rounds$function$
+;
+
+CREATE OR REPLACE FUNCTION public.hmac(text, text, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_hmac$function$
+;
+
+CREATE OR REPLACE FUNCTION public.hmac(bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pg_hmac$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_armor_headers(text, OUT key text, OUT value text)
+ RETURNS SETOF record
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_armor_headers$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_key_id(bytea)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_key_id_w$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt(bytea, bytea, text)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt(bytea, bytea, text, text)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt(bytea, bytea)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt_bytea(bytea, bytea, text, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt_bytea(bytea, bytea)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_decrypt_bytea(bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_decrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_encrypt(text, bytea)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_encrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_encrypt(text, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_encrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_encrypt_bytea(bytea, bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_encrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_pub_encrypt_bytea(bytea, bytea)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_pub_encrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_decrypt(bytea, text)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_decrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_decrypt(bytea, text, text)
+ RETURNS text
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_decrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_decrypt_bytea(bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_decrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_decrypt_bytea(bytea, text, text)
+ RETURNS bytea
+ LANGUAGE c
+ IMMUTABLE PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_decrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_encrypt(text, text, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_encrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_encrypt(text, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_encrypt_text$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_encrypt_bytea(bytea, text, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_encrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.pgp_sym_encrypt_bytea(bytea, text)
+ RETURNS bytea
+ LANGUAGE c
+ PARALLEL SAFE STRICT
+AS '$libdir/pgcrypto', $function$pgp_sym_encrypt_bytea$function$
+;
+
+CREATE OR REPLACE FUNCTION public.masking_name(name character varying)
+ RETURNS character varying
+ LANGUAGE plpgsql
+AS $function$ declare
+    maskingName varchar;
+    BEGIN
+        select case when CHAR_LENGTH(name) > 2 then  concat(substring(name, 1, 1), LPAD('*', CHAR_LENGTH(name) - 2, '*'), SUBSTRING(name, CHAR_LENGTH(name), CHAR_LENGTH(name)))
+                    else  concat(substring(name, 1, 1), '*') end as name_masking
+        into maskingName;
+        return maskingName;
+    end;
+    $function$
+;
+
+CREATE OR REPLACE FUNCTION public.phonenumber(pno character varying)
+ RETURNS character varying
+ LANGUAGE plpgsql
+AS $function$ declare
+    DECLARE p_no VARCHAR(20);
+    BEGIN
+          case length(pno)
+               when 9  then p_no = concat(substring(pno,1,2), '-', substring(pno,3,3), '-', substring(pno,6));
+               when 10 then
+                            case left(pno,2) when '02' then p_no = concat(substring(pno,1,2), '-', substring(pno,3,4), '-', substring(pno,7));
+                            else p_no = concat(substring(pno,1,3), '-', substring(pno,4,3), '-', substring(pno,7));
+                            end  case;
+               when 11 then p_no = concat(substring(pno,1,3), '-', substring(pno,4,4), '-', substring(pno,8));
+               when 12 then p_no = concat(substring(pno,1,4), '-', substring(pno,4,4), '-', substring(pno,9));
+               else set p_no = pno;
+               end  case;
+        RETURN p_no;
+     end;
+     $function$
+;
+
+CREATE OR REPLACE FUNCTION public.encrypt(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE STRICT
+AS $function$
+select encode(public.encrypt(txt::bytea, public.digest('support', 'sha256'), 'aes'::text), 'base64') AS result;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.hash(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE STRICT
+AS $function$
+select encode(public.digest($1, 'sha256'), 'base64') AS result;
+$function$
+;
