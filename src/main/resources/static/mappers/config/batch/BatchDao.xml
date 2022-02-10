@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.config.batch.BatchDao">
+
+    <select id="getBatchList" parameterType="map" resultType="map">
+        select /* BatchDao.getBatchList */
+               bat_svr   as bat_svr   /* varchar-배치_서버 */
+             , bat_id    as bat_id    /* varchar-배치_ID */
+             , bat_nm    as bat_nm    /* varchar-배치_명 */
+             , bat_desc  as bat_desc  /* varchar-배치_설명 */
+             , bat_agent as bat_agent /* varchar-배치_에이전트 */
+             , bat_sch   as bat_sch   /* varchar-배치_스케쥴 */
+             , use_yn    as use_yn    /* bpchar-사용_여부 */
+             , exe_stp   as exe_stp   /* varchar-실행_단계 */
+             , bsc_prm   as bsc_prm   /* text-기본_파라미터 */
+             , note      as note      /* text-비고 */
+             , reg_dt    as reg_dt    /* timestamp-등록_일시 */
+             , chg_dt    as chg_dt    /* timestamp-수정_일시 */
+          from svc_bat /* 배치기본정보 */
+         where 1=1
+           and bat_svr = (select svr_nm as svr_nm /* 서버_명 */
+                            from svr /* 서버정보 */
+                           where 1=1
+                             and svr_tp = 'BATCH'    /* 서버_타입(배치:BATCH, AP:AP ... ) */
+                             and svr_ip = #{bat_svr} /* 서버_IP */
+                         ) /* 배치_서버 */
+           and use_yn  = 'Y'
+    </select>
+
+    <update id="updateBatchStepInfo" parameterType="map">
+        update /* BatchDao.updateBatchStepInfo */
+               svc_bat /* 배치기본정보 */
+           set exe_stp = #{exe_stp} /* 실행_단계 */
+             , chg_dt   = now()     /* 수정_일시 */
+         where 1=1
+           and bat_svr = #{bat_svr} /* 배치_서버 */
+           and bat_id  = #{bat_id}  /* 배치_ID */
+    </update>
+
+    <update id="updateBatchSchInfo" parameterType="map">
+        update /* BatchDao.updateBatchSchInfo */
+               svc_bat /* 배치기본정보 */
+           set bat_sch = #{bat_sch} /* 배치_스케쥴 */
+            , chg_dt  = now()      /* 수정_일시 */
+         where 1=1
+           and bat_svr = #{bat_svr} /* 배치_서버 */
+           and bat_id  = #{bat_id}  /* 배치_ID */
+    </update>
+
+    <select id="getBatchChgReqList" parameterType="map" resultType="map">
+        select /* BatchDao.getBatchChgList */
+               bat_svr       as bat_svr       /* varchar-배치_서버 */
+             , bat_id        as bat_id        /* varchar-배치_ID */
+             , chg_req_dt    as chg_req_dt    /* bpchar-변경_요청_일자 */
+             , chg_req_sq    as chg_req_sq    /* numeric-변경_요청_순번 */
+             , org_bat_nm    as org_bat_nm    /* varchar-원본_배치_명 */
+             , chg_bat_nm    as chg_bat_nm    /* varchar-변경_배치_명 */
+             , org_bat_desc  as org_bat_desc  /* varchar-원본_배치_설명 */
+             , chg_bat_desc  as chg_bat_desc  /* varchar-변경_배치_설명 */
+             , org_bat_agent as org_bat_agent /* varchar-원본_배치_에이전트 */
+             , chg_bat_agent as chg_bat_agent /* varchar-변경_배치_에이전트 */
+             , org_bat_sch   as org_bat_sch   /* varchar-원본_배치_스케쥴 */
+             , chg_bat_sch   as chg_bat_sch   /* varchar-변경_배치_스케쥴 */
+             , org_use_yn    as org_use_yn    /* bpchar-원본_사용_여부 */
+             , chg_use_yn    as chg_use_yn    /* bpchar-변경_사용_여부 */
+             , exe_stp       as exe_stp       /* varchar-실행_단계 */
+             , exe_rslt_msg  as exe_rslt_msg  /* varchar-실행_결과_메시지 */
+             , org_bsc_prm   as org_bsc_prm   /* text-원본_기본_파라미터 */
+             , chg_bsc_prm   as chg_bsc_prm   /* text-변경_기본_파라미터 */
+             , note          as note          /* text-비고 */
+             , reg_dt        as reg_dt        /* timestamp-등록_일시 */
+             , chg_dt        as chg_dt        /* timestamp-수정_일시 */
+          from svc_bat_chg_req /* 배치변경요청 */
+         where 1=1
+           and bat_svr = #{bat_svr} /* 배치_서버 */
+           and exe_stp = '1000'     /* 실행_단계 */
+    </select>
+
+    <update id="updateBatchChgInfo" parameterType="map">
+        update /* BatchDao.updateBatchChgInfo */
+               svc_bat_chg_req /* 배치변경요청 */
+           set exe_stp      = #{exe_stp}   /* 실행_단계 */
+             , exe_rslt_msg = #{exe_rslt_msg} /* 결과_메시지 */
+         where 1=1
+           and bat_svr    = #{bat_svr}              /* 배치_서버 */
+           and bat_id     = #{bat_id}               /* 배치_ID */
+           and chg_req_dt = #{chg_req_dt}           /* 변경_요청_일자 */
+           and chg_req_sq = cast(#{seq} as numeric) /* 변경_요청_순번 */
+    </update>
+
+    <insert id="createBatchExeHis" parameterType="map">
+        insert /* BatchDao.createBatchExeHis */
+          into svc_bat_exe_h /* 배치실행이력 */ (
+               bat_svr     /* varchar-배치_서버 */
+             , bat_id      /* varchar-배치_ID */
+             , exe_stp     /* varchar-실행_단계 */
+             , rslt_msg    /* text-결과_메시지 */
+        ) values (
+               #{bat_svr}  /* varchar-배치_서버 */
+             , #{bat_id}   /* varchar-배치_ID */
+             , #{exe_stp}  /* varchar-실행_단계 */
+             , #{rslt_msg} /* text-결과_메시지 */
+        )
+    </insert>
+
+</mapper>

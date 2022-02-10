@@ -1,4 +1,4 @@
-package blog.benggri.springboot.member;
+package blog.benggri.springboot.usr;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +11,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("member")
-public class MemberController {
+public class UsrController {
 
     @Autowired
-    private MemberService memberService;
+    private UsrService usrService;
 
     @RequestMapping(value="getDataList", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity getDataList(
             @RequestBody Map<String, Object> prmMap
     ) {
-        Map<String, Object> result = memberService.getDataList(prmMap);
+        Map<String, Object> result = usrService.getDataList(prmMap);
         return ResponseEntity.ok(result);
     }
 
@@ -28,7 +28,7 @@ public class MemberController {
     public ResponseEntity getData(
             @RequestBody Map<String, Object> prmMap
     ) {
-        Map<String, Object> result = memberService.getData(prmMap);
+        Map<String, Object> result = usrService.getData(prmMap);
         return ResponseEntity.ok(result);
     }
 

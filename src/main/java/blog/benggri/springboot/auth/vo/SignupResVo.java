@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResVo {
+public class SignupResVo {
 
     private String usrId;
 
     public static LoginResVo of(UsrEntity entityUsr) {
         return new LoginResVo(entityUsr.getUsrId());
     }
+
 }

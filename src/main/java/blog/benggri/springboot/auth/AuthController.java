@@ -1,6 +1,6 @@
 package blog.benggri.springboot.auth;
 
-import blog.benggri.springboot.auth.vo.LoginReqVo;
+import blog.benggri.springboot.auth.vo.SignupReqVo;
 import blog.benggri.springboot.auth.vo.TokenReqVo;
 import blog.benggri.springboot.comm.constraint.ResEntity;
 import blog.benggri.springboot.comm.constraint.ResEnum;
@@ -21,7 +21,7 @@ public class AuthController {
     private AuthService authService;
 
     @RequestMapping(value="signup.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
-    public ResponseEntity signup(@RequestBody LoginReqVo req) {
+    public ResponseEntity signup(@RequestBody SignupReqVo req) {
         Map<String, Object> result = authService.signup(req);
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }

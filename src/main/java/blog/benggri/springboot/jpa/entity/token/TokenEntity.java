@@ -1,5 +1,6 @@
 package blog.benggri.springboot.jpa.entity.token;
 
+import blog.benggri.springboot.jpa.entity.comm.DefaultEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +13,19 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "refresh_token")
 @Entity
-public class RefreshTokenEntity {
+public class TokenEntity extends DefaultEntity {
 
     @Id
     private String key;
     private String value;
 
-    public RefreshTokenEntity updateValue(String token) {
+    public TokenEntity updateValue(String token) {
         this.value = token;
         return this;
     }
 
     @Builder
-    public RefreshTokenEntity(String key, String value) {
+    public TokenEntity(String key, String value) {
         this.key = key;
         this.value = value;
     }

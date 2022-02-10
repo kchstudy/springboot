@@ -1,4 +1,4 @@
-package blog.benggri.springboot.member.vo;
+package blog.benggri.springboot.usr.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "사용자", description = "사용자")
-public class MemberVo {
+public class UsrVo {
 
     @ApiModelProperty(value="순번", required=true, example="MEMBER_SEQ")
     private Long   seq    ; /* numeric-순번 */

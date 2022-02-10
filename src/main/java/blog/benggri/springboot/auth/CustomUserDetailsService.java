@@ -1,7 +1,7 @@
 package blog.benggri.springboot.auth;
 
-import blog.benggri.springboot.jpa.entity.member.MemberEntity;
-import blog.benggri.springboot.jpa.repository.member.MemberRepository;
+import blog.benggri.springboot.jpa.entity.usr.UsrEntity;
+import blog.benggri.springboot.jpa.repository.usr.UsrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +24,24 @@ import static blog.benggri.springboot.comm.util.StringUtil.STEP;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private MemberRepository memberRepository;
+    private UsrRepository usrRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         STEP(log, "Member");
-        Optional<MemberEntity> entityMember = memberRepository.findById(username);
+        Optional<UsrEntity> entityMember = usrRepository.findByUsrId(username);
         STEP(log, "[entityMember]["+entityMember+"]");
 
-        return memberRepository.findById(username)
+        return usrRepository.findByUsrId(username)
                                .map(this::createUserDetails)
                                .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
     }
 
-    private UserDetails createUserDetails(MemberEntity memberEntity) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(memberEntity.getAuth());
+    private UserDetails createUserDetails(UsrEntity usrEntity) {
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(usrEntity.getUsrId());
+//        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(usrEntity.getUsrClsCd());
         return new User(
-                memberEntity.getId(), memberEntity.getPwd(), Collections.singleton(grantedAuthority)
+                usrEntity.getUsrId(), usrEntity.getEncUsrPwd(), Collections.singleton(grantedAuthority)
         );
     }
 }

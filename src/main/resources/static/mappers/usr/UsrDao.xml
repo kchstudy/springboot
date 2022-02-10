@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.usr.UsrDao">
+
+    <select id="getDataList" parameterType="map" resultType="map">
+        select /* UsrDao.getDataList */
+               m.usr_sq         as usr_sq         /* numeric-사용자_순번 */
+             , m.usr_id         as usr_id         /* varchar-사용자_ID */
+             , m.enc_usr_pwd    as enc_usr_pwd    /* varchar-암호화_사용자_비밀번호 */
+             , m.usr_cls_cd     as usr_cls_cd     /* varchar-사용자_구분_코드 */
+             , m.pwd_chg_dt     as pwd_chg_dt     /* bpchar-비밀번호_변경_일자 */
+             , m.pwd_expr_dt    as pwd_expr_dt    /* bpchar-비밀번호_만료_일자 */
+             , d.usr_nm         as usr_nm         /* varchar-사용자_이름 */
+             , d.enc_usr_phn_no as enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , d.enc_usr_email  as enc_usr_email  /* varchar-암호화_사용자_이메일 */
+          from           usr      m /* 사용자 */
+               left join usr_info d /* 사용자_정보 */ on m.usr_sq = d.usr_sq
+    </select>
+
+    <select id="getData" parameterType="map" resultType="map">
+        select /* UsrDao.getData */
+               m.usr_sq         as usr_sq         /* numeric-사용자_순번 */
+             , m.usr_id         as usr_id         /* varchar-사용자_ID */
+             , m.enc_usr_pwd    as enc_usr_pwd    /* varchar-암호화_사용자_비밀번호 */
+             , m.usr_cls_cd     as usr_cls_cd     /* varchar-사용자_구분_코드 */
+             , m.pwd_chg_dt     as pwd_chg_dt     /* bpchar-비밀번호_변경_일자 */
+             , m.pwd_expr_dt    as pwd_expr_dt    /* bpchar-비밀번호_만료_일자 */
+             , d.usr_nm         as usr_nm         /* varchar-사용자_이름 */
+             , d.enc_usr_phn_no as enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , d.enc_usr_email  as enc_usr_email  /* varchar-암호화_사용자_이메일 */
+          from           usr      m /* 사용자 */
+               left join usr_info d /* 사용자_정보 */ on m.usr_sq = d.usr_sq
+         where 1=1
+           and m.usr_sq = cast(#{usr_sq} as numeric) /* numeric-순번 */
+    </select>
+
+</mapper>

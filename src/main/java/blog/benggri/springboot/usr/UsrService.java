@@ -1,4 +1,4 @@
-package blog.benggri.springboot.member;
+package blog.benggri.springboot.usr;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +10,21 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class MemberService {
+public class UsrService {
 
     @Autowired
-    private MemberDao memberDao;
+    private UsrDao usrDao;
 
     public Map<String, Object> getDataList(Map<String, Object> prmMap) {
         Map<String, Object> result = new HashMap<String, Object>();
-        List<Map<String, Object>> data = memberDao.getDataList(prmMap);
+        List<Map<String, Object>> data = usrDao.getDataList(prmMap);
         result.put("data", data);
         return result;
     }
 
     public Map<String, Object> getData(Map<String, Object> prmMap) {
         Map<String, Object> result = new HashMap<String, Object>();
-        Map<String, Object> data = memberDao.getData(prmMap);
+        Map<String, Object> data = usrDao.getData(prmMap);
         result.put("data", data);
         return result;
     }

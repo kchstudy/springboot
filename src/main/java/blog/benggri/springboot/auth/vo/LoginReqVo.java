@@ -1,6 +1,6 @@
 package blog.benggri.springboot.auth.vo;
 
-import blog.benggri.springboot.jpa.entity.member.MemberEntity;
+import blog.benggri.springboot.jpa.entity.usr.UsrEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,14 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @NoArgsConstructor
 public class LoginReqVo {
 
-    private String id;
-    private String pwd;
+    private String usrId;
+    private String encUsrPwd;
 
-    public MemberEntity toUsr(PasswordEncoder passwordEncoder) {
-        return MemberEntity.builder().id(id).pwd(passwordEncoder.encode(pwd)).auth("ROLE_USER").build();
+    public UsrEntity toUsr(PasswordEncoder passwordEncoder) {
+        return UsrEntity.builder().usrId(usrId).encUsrPwd(passwordEncoder.encode(encUsrPwd)).usrClsCd("ROLE_USER").build();
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(id, pwd);
+        return new UsernamePasswordAuthenticationToken(usrId, encUsrPwd);
     }
 }
