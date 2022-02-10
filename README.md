@@ -20,6 +20,7 @@
 * swagger
 * rest
 * postgresql
+* Spring-Quartz
 
 ## Spring Initializr
 
