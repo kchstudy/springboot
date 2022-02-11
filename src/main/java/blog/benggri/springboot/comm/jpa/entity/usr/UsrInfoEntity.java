@@ -1,6 +1,6 @@
-package blog.benggri.springboot.jpa.entity.usr;
+package blog.benggri.springboot.comm.jpa.entity.usr;
 
-import blog.benggri.springboot.jpa.entity.comm.DefaultEntity;
+import blog.benggri.springboot.comm.jpa.entity.comm.DefaultEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

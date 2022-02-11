@@ -1,6 +1,6 @@
-package blog.benggri.springboot.jpa.entity.token;
+package blog.benggri.springboot.comm.jpa.entity.token;
 
-import blog.benggri.springboot.jpa.entity.comm.DefaultEntity;
+import blog.benggri.springboot.comm.jpa.entity.comm.DefaultEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

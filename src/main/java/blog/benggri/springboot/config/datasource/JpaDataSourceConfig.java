@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "blog.benggri.springboot.jpa.repository" , entityManagerFactoryRef = "basicEntityManager", transactionManagerRef = "basicTransactionManager")
+@EnableJpaRepositories(basePackages = "blog.benggri.springboot.comm.jpa.repository" , entityManagerFactoryRef = "basicEntityManager", transactionManagerRef = "basicTransactionManager")
 public class JpaDataSourceConfig {
 
     @Value("${benggri.springboot.datasource.jndi-name}")
@@ -52,7 +52,7 @@ public class JpaDataSourceConfig {
         properties.put("hibernate.physical_naming_strategy"               , "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"); // 네이밍(카멜케이스)
 
         em.setDataSource(basicDataSource());
-        em.setPackagesToScan("blog.benggri.springboot.jpa.entity");
+        em.setPackagesToScan("blog.benggri.springboot.comm.jpa.entity");
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaPropertyMap(properties);
         em.setPersistenceUnitName("basic");

@@ -1,4 +1,4 @@
-package blog.benggri.springboot.jpa.entity.comm;
+package blog.benggri.springboot.comm.jpa.entity.comm;
 
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
