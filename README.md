@@ -25,6 +25,6 @@
 ## Spring Initializr
 
 * Maven Project
-* Spring Boot 2.4.11
-* Java 8
+* Spring Boot 2.6.3
+* Java 11
 * War
