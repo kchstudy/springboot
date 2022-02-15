@@ -4,16 +4,18 @@ import blog.benggri.springboot.auth.vo.LoginReqVo;
 import blog.benggri.springboot.auth.vo.LoginResVo;
 import blog.benggri.springboot.auth.vo.SignupReqVo;
 import blog.benggri.springboot.auth.vo.TokenReqVo;
+import blog.benggri.springboot.biz.jpa.entity.usr.UsrLoginEntity;
+import blog.benggri.springboot.biz.jpa.repository.usr.UsrLoginRepository;
 import blog.benggri.springboot.comm.exception.CustomException;
 import blog.benggri.springboot.comm.util.MapBuilder;
 import blog.benggri.springboot.config.jwt.TokenProvider;
 import blog.benggri.springboot.config.jwt.TokenVo;
-import blog.benggri.springboot.comm.jpa.entity.token.TokenEntity;
-import blog.benggri.springboot.comm.jpa.entity.usr.UsrEntity;
-import blog.benggri.springboot.comm.jpa.entity.usr.UsrInfoEntity;
-import blog.benggri.springboot.comm.jpa.repository.token.TokenRepository;
-import blog.benggri.springboot.comm.jpa.repository.usr.UsrInfoRepository;
-import blog.benggri.springboot.comm.jpa.repository.usr.UsrRepository;
+import blog.benggri.springboot.biz.jpa.entity.token.TokenEntity;
+import blog.benggri.springboot.biz.jpa.entity.usr.UsrEntity;
+import blog.benggri.springboot.biz.jpa.entity.usr.UsrInfoEntity;
+import blog.benggri.springboot.biz.jpa.repository.token.TokenRepository;
+import blog.benggri.springboot.biz.jpa.repository.usr.UsrInfoRepository;
+import blog.benggri.springboot.biz.jpa.repository.usr.UsrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.Optional;
 
+import static blog.benggri.springboot.comm.util.DateUtil.getSimpleDate;
 import static blog.benggri.springboot.comm.util.StringUtil.STEP;
 import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 
@@ -39,6 +43,9 @@ public class AuthService {
 
     @Autowired
     private UsrInfoRepository usrInfoRepository;
+
+    @Autowired
+    private UsrLoginRepository usrLoginRepository;
 
     @Autowired
     private final TokenRepository tokenRepository;
@@ -68,7 +75,7 @@ public class AuthService {
 
     @Transactional(value="basicTransactionManager")
     public Map<String, Object> login(Map<String, Object> prmMap) {
-        LoginReqVo req = LoginReqVo.builder().usrId(nvl( prmMap.get("usr_id")) ).encUsrPwd( nvl(prmMap.get("enc_usr_pwd")) ).build();
+        LoginReqVo req = LoginReqVo.builder().usrId( nvl(prmMap.get("usr_id")) ).encUsrPwd( nvl(prmMap.get("enc_usr_pwd")) ).build();
         STEP(log, "1. Login ID/PW 를 기반으로 AuthenticationToken 생성");
         UsernamePasswordAuthenticationToken authenticationToken = req.toAuthentication();
 
@@ -87,14 +94,19 @@ public class AuthService {
 
         tokenRepository.save(refreshToken);
 
+        Optional<UsrEntity> usrEntity = usrRepository.findByUsrId( nvl(prmMap.get("usr_id")) );
+        UsrLoginEntity usrLoginEntity = UsrLoginEntity.builder().loginDt( getSimpleDate() ).usrSq( usrEntity.get().getUsrSq() ).build();
+        usrLoginRepository.save(usrLoginEntity); // 사용자 로그인 이력
+
         STEP(log, "5. 토큰 발급");
         // 5. 토큰 발급
         return MapBuilder.<String,Object>createInstance()
-                .add( "grant_type"              , tokenVo.getGrantType()            )
-                .add( "access_token"            , tokenVo.getAccessToken()          )
-                .add( "refresh_token"           , tokenVo.getRefreshToken()         )
-                .add( "access_token_expires_in" , tokenVo.getAccessTokenExpiresIn() )
-                .toMap();
+                         .add( "usr_id"                  , nvl(prmMap.get("usr_id"))         )
+                         .add( "grant_type"              , tokenVo.getGrantType()            )
+                         .add( "access_token"            , tokenVo.getAccessToken()          )
+                         .add( "refresh_token"           , tokenVo.getRefreshToken()         )
+                         .add( "access_token_expires_in" , tokenVo.getAccessTokenExpiresIn() )
+                         .toMap();
     }
 
     @Transactional(value="basicTransactionManager")
@@ -108,11 +120,11 @@ public class AuthService {
         Authentication authentication = tokenProvider.getAuthentication(voTokenReq.getAccessToken());
 
         STEP(log, "3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴");
-        TokenEntity tokenEntity = tokenRepository.findByKey(authentication.getName())
+        TokenEntity tokenEntity = tokenRepository.findByK(authentication.getName())
                                                                           .orElseThrow(() -> new CustomException("로그아웃된 사용자입니다."));
 
         STEP(log, "4. Refresh Token 일치하는지 검사");
-        if ( !tokenEntity.getValue().equals(voTokenReq.getRefreshToken()) ) {
+        if ( !tokenEntity.getV().equals(voTokenReq.getRefreshToken()) ) {
             throw new CustomException("토큰의 유저 정보가 일치하지 않습니다.");
         }
 

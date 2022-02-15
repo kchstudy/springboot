@@ -1,6 +1,6 @@
 package blog.benggri.springboot.auth.vo;
 
-import blog.benggri.springboot.comm.jpa.entity.usr.UsrEntity;
+import blog.benggri.springboot.biz.jpa.entity.usr.UsrEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package blog.benggri.springboot.usr;
+package blog.benggri.springboot.biz.usr;
 
 import org.apache.ibatis.annotations.Mapper;
 

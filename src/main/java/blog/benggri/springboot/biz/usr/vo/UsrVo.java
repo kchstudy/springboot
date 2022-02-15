@@ -1,4 +1,4 @@
-package blog.benggri.springboot.usr.vo;
+package blog.benggri.springboot.biz.usr.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

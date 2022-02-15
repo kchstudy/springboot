@@ -1,4 +1,4 @@
-package blog.benggri.springboot.usr;
+package blog.benggri.springboot.biz.usr;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
