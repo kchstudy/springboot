@@ -22,7 +22,7 @@
 * postgresql
 * Spring-Quartz
 
-## Spring Initializr
+## Spring Initializr(https://start.spring.io/)
 
 * Maven Project
 * Spring Boot 2.6.3
