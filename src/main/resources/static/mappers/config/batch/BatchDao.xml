@@ -34,7 +34,7 @@
         update /* BatchDao.updateBatchStepInfo */
                svc_bat /* 배치기본정보 */
            set exe_stp = #{exe_stp} /* 실행_단계 */
-             , chg_dt   = now()     /* 수정_일시 */
+             , chg_dt  = now()     /* 수정_일시 */
          where 1=1
            and bat_svr = #{bat_svr} /* 배치_서버 */
            and bat_id  = #{bat_id}  /* 배치_ID */
@@ -44,7 +44,7 @@
         update /* BatchDao.updateBatchSchInfo */
                svc_bat /* 배치기본정보 */
            set bat_sch = #{bat_sch} /* 배치_스케쥴 */
-            , chg_dt  = now()      /* 수정_일시 */
+             , chg_dt  = now()      /* 수정_일시 */
          where 1=1
            and bat_svr = #{bat_svr} /* 배치_서버 */
            and bat_id  = #{bat_id}  /* 배치_ID */

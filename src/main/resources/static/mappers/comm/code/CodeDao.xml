@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.comm.code.CodeDao">
+
+
+    <select id="getGrpCdList" parameterType="map" resultType="map">
+        select /* CodeDao.getGrpCdList */
+               grp_cd      as grp_cd      /* varchar-그룹_코드 */
+             , grp_nm      as grp_nm      /* varchar-그룹_명 */
+             , prnt_grp_cd as prnt_grp_cd /* varchar-상위_그룹_코드 */
+             , use_yn      as use_yn      /* bpchar-사용_여부 */
+             , note        as note        /* text-비고 */
+             , reg_dt      as reg_dt      /* timestamp-등록_일시 */
+             , chg_dt      as chg_dt      /* timestamp-수정_일시 */
+          from comm_grp_cd /* 공통_그룹_코드 */
+         where 1=1
+        <if test=' grp_cd != null and grp_cd != "" '>
+           and grp_cd = #{grp_cd}
+        </if>
+        <if test=' grp_nm != null and grp_nm != "" '>
+           and grp_nm = #{grp_nm}
+        </if>
+        <if test=' prnt_grp_cd != null and prnt_grp_cd != "" '>
+           and prnt_grp_cd = #{prnt_grp_cd}
+        </if>
+           and use_yn = 'Y' /* bpchar-사용_여부 */
+    </select>
+
+    <select id="getGrpCd" parameterType="map" resultType="map">
+        select /* CodeDao.getGrpCd */
+               grp_cd      as grp_cd      /* varchar-그룹_코드 */
+             , grp_nm      as grp_nm      /* varchar-그룹_명 */
+             , prnt_grp_cd as prnt_grp_cd /* varchar-상위_그룹_코드 */
+             , use_yn      as use_yn      /* bpchar-사용_여부 */
+             , note        as note        /* text-비고 */
+             , reg_dt      as reg_dt      /* timestamp-등록_일시 */
+             , chg_dt      as chg_dt      /* timestamp-수정_일시 */
+          from comm_grp_cd /* 공통_그룹_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd}
+    </select>
+
+    <select id="getCdList" parameterType="map" resultType="map">
+        select /* CodeDao.getCdList */
+               grp_cd as grp_cd /* varchar-그룹_코드 */
+             , cd     as cd     /* varchar-코드 */
+             , cd_nm  as cd_nm  /* varchar-코드_명 */
+             , cd_v   as cd_v   /* varchar-코드_값 */
+             , note   as note   /* text-비고 */
+             , sq     as sq     /* numeric-순번 */
+             , use_yn as use_yn /* bpchar-사용_여부 */
+             , reg_dt as reg_dt /* timestamp-등록_일시 */
+             , chg_dt as chg_dt /* timestamp-수정_일시 */
+          from comm_cd /* 공통_코드 */
+         where 1=1
+        <if test=' grp_cd != null and grp_cd != "" '>
+           and grp_cd = #{grp_cd}
+        </if>
+        <if test=' cd != null and cd != "" '>
+           and cd = #{cd}
+        </if>
+        <if test=' cd_nm != null and cd_nm != "" '>
+           and cd_nm = #{cd_nm}
+        </if>
+        <if test=' cd_v != null and cd_v != "" '>
+           and cd_v = #{cd_v}
+        </if>
+        <if test=' note != null and note != "" '>
+           and note = #{note}
+        </if>
+        <if test=' sq != null and sq != "" '>
+           and sq = cast(#{sq} as numeric)
+        </if>
+           and use_yn = 'Y'
+    </select>
+
+    <select id="getCd" parameterType="map" resultType="map">
+        select /* CodeDao.getCdList */
+               grp_cd as grp_cd /* varchar-그룹_코드 */
+             , cd     as cd     /* varchar-코드 */
+             , cd_nm  as cd_nm  /* varchar-코드_명 */
+             , cd_v   as cd_v   /* varchar-코드_값 */
+             , note   as note   /* text-비고 */
+             , sq     as sq     /* numeric-순번 */
+             , use_yn as use_yn /* bpchar-사용_여부 */
+             , reg_dt as reg_dt /* timestamp-등록_일시 */
+             , chg_dt as chg_dt /* timestamp-수정_일시 */
+          from comm_cd /* 공통_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd}
+           and cd = #{cd}
+    </select>
+
+</mapper>
