@@ -39,19 +39,17 @@ public class LogAspect {
         Object[] args = pjp.getArgs();
         StringBuilder sb = new StringBuilder();
         for (Object arg : args) {
-            STEP(log, "[arg]["+arg+"]");
             sb.append(arg.toString());
         }
         logEntity.setReqCntnt(sb.toString());
 
         logEntity = logRepository.save(logEntity);
-        STEP(log, "[logEntity]["+logEntity+"]");
 
         HttpServletRequest request = (HttpServletRequest) args[0];
         request.setAttribute("log_dt", logEntity.getLogDt());
         request.setAttribute("log_sq", logEntity.getLogSq());
 
-        Object result = pjp.proceed();
+        Object result = pjp.proceed(); // 실제 컨트롤러 로직이 수행되는 구간
 
         logEntity.setResDt(getFullTime());
         logEntity.setSttsCd("2000");
@@ -64,7 +62,6 @@ public class LogAspect {
 
     @AfterThrowing(pointcut="execution(* blog.benggri.springboot..*Controller.*(..))", throwing="ex")
     public void loggingAfterThrowing(JoinPoint jp, Throwable ex) throws Throwable {
-        log.info("[ERROR][" + jp.getSignature().getDeclaringTypeName() + "][" + jp.getSignature().getName()+"]");
         Object[] args = jp.getArgs();
         HttpServletRequest request = (HttpServletRequest) args[0];
         String log_dt = nvl(request.getAttribute("log_dt"));
