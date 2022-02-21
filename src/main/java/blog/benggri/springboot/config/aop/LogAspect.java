@@ -30,7 +30,7 @@ public class LogAspect {
     public Object logging(ProceedingJoinPoint pjp) throws Throwable {
         LogEntity logEntity = LogEntity.builder()
                                        .logDt(getSimpleDate())
-                                       .cmpnnt(pjp.getSignature().getDeclaringTypeName())
+                                       .cmpnnt(pjp.getTarget().getClass().getSimpleName())
                                        .method(pjp.getSignature().getName())
                                        .reqDt(getFullTime())
                                        .sttsCd("1000")
