@@ -20,10 +20,11 @@
 * swagger
 * rest
 * postgresql
+* Spring-Quartz
 
-## Spring Initializr
+## Spring Initializr(https://start.spring.io/)
 
 * Maven Project
-* Spring Boot 2.4.11
-* Java 8
+* Spring Boot 2.6.3
+* Java 11
 * War
