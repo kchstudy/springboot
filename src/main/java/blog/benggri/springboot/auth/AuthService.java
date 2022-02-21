@@ -100,7 +100,7 @@ public class AuthService {
 
         STEP(log, "5. 토큰 발급");
         // 5. 토큰 발급
-        return MapBuilder.<String,Object>createInstance()
+        return MapBuilder.createInstance()
                          .add( "usr_id"                  , nvl(prmMap.get("usr_id"))         )
                          .add( "grant_type"              , tokenVo.getGrantType()            )
                          .add( "access_token"            , tokenVo.getAccessToken()          )
@@ -137,11 +137,11 @@ public class AuthService {
 
         STEP(log, "7. 토큰 발급");
 
-        return MapBuilder.<String,Object>createInstance()
-                .add( "grant_type"              , tokenVo.getGrantType()            )
-                .add( "access_token"            , tokenVo.getAccessToken()          )
-                .add( "refresh_token"           , tokenVo.getRefreshToken()         )
-                .add( "access_token_expires_in" , tokenVo.getAccessTokenExpiresIn() )
-                .toMap();
+        return MapBuilder.createInstance()
+                         .add( "grant_type"              , tokenVo.getGrantType()            )
+                         .add( "access_token"            , tokenVo.getAccessToken()          )
+                         .add( "refresh_token"           , tokenVo.getRefreshToken()         )
+                         .add( "access_token_expires_in" , tokenVo.getAccessTokenExpiresIn() )
+                         .toMap();
     }
 }

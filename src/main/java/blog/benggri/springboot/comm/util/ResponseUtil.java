@@ -15,17 +15,17 @@ public class ResponseUtil {
      */
     public static Map<String, Object>  addPlatformInfo(Map<String, Object> prmMap, ResEnum wEnum, String resultMsg, boolean isBaseMessage) {
         Map<String, Object> resultMap = (prmMap == null) ? new HashMap<String,Object>() : prmMap;
-        //String requiredFileds[] = {"resTime","resCode","resMsg"};
+        //String requiredFileds[] = {"resTime","rslt_cd","rslt_msg"};
         if (!resultMap.containsKey("resTime")){
             resultMap.put("resTime", DateUtil.getSimpleTime());
         }
-        if (!resultMap.containsKey("resCode")){
-            resultMap.put("resCode", wEnum.getCode());
+        if (!resultMap.containsKey("rslt_cd")){
+            resultMap.put("rslt_cd", wEnum.getCode());
         }
-        if (!resultMap.containsKey("resMsg")){
-            resultMap.put("resMsg", wEnum.getMessage(resultMsg, isBaseMessage));
+        if (!resultMap.containsKey("rslt_msg")){
+            resultMap.put("rslt_msg", wEnum.getMessage(resultMsg, isBaseMessage));
         }
-        prmMap.put("svcNm"  , "system");
+        prmMap.put("svcNm"  , "study");
         return resultMap;
     }
 
@@ -34,9 +34,9 @@ public class ResponseUtil {
     }
 
     public static Map<String, Object> setRsltInfo(Map<String, Object> prmMap, String rsltCode, String msg) {
-        prmMap.put("svcNm"  , "system");
-        prmMap.put("resCode", rsltCode);
-        prmMap.put("resMsg" , msg);
+        prmMap.put("svcNm"    , "study");
+        prmMap.put("rslt_cd"  , rsltCode);
+        prmMap.put("rslt_msg" , msg);
         return prmMap;
     }
 
@@ -45,10 +45,11 @@ public class ResponseUtil {
      * @return
      */
     public static Map<String, Object> createResComm() {
-        return  MapBuilder.<String, Object>createInstance()
-                .add("resCode" , "")
-                .add("resMsg"  , "")
-                .toMap();
+        return  MapBuilder.createInstance()
+                          .add("svcNm"     , "study")
+                          .add("rslt_cd"   , "")
+                          .add("rslt_msg"  , "")
+                          .toMap();
     }
 
 }

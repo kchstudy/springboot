@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -21,19 +22,28 @@ public class AuthController {
     private AuthService authService;
 
     @RequestMapping(value="signup.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
-    public ResponseEntity signup(@RequestBody SignupReqVo req) {
+    public ResponseEntity signup(
+            HttpServletRequest request,
+            @RequestBody SignupReqVo req
+    ) {
         Map<String, Object> result = authService.signup(req);
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }
 
     @RequestMapping(value="login.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
-    public ResponseEntity login( @RequestBody Map<String, Object> prmMap ) {
+    public ResponseEntity login(
+            HttpServletRequest request,
+            @RequestBody Map<String, Object> prmMap
+    ) {
         Map<String, Object> result = authService.login(prmMap);
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }
 
     @RequestMapping(value="reissue.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
-    public ResponseEntity reissue(@RequestBody TokenReqVo voTokenReq) {
+    public ResponseEntity reissue(
+            HttpServletRequest request,
+            @RequestBody TokenReqVo voTokenReq
+    ) {
         Map<String, Object> result = authService.reissue(voTokenReq);
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }

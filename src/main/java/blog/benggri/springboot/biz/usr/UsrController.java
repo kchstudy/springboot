@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -18,6 +19,7 @@ public class UsrController {
 
     @RequestMapping(value="getDataList", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity getDataList(
+            HttpServletRequest request,
             @RequestBody Map<String, Object> prmMap
     ) {
         Map<String, Object> result = usrService.getDataList(prmMap);
@@ -26,6 +28,7 @@ public class UsrController {
 
     @RequestMapping(value="getData", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity getData(
+            HttpServletRequest request,
             @RequestBody Map<String, Object> prmMap
     ) {
         Map<String, Object> result = usrService.getData(prmMap);

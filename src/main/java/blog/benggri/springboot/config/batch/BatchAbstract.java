@@ -68,7 +68,7 @@ public abstract class BatchAbstract implements Job, BatchInterface {
 
         ApplicationContext ctx = (ApplicationContext)context.getJobDetail().getJobDataMap().get("applicationContext");
         BatchService batchService = (BatchService)ctx.getBean("batchService");
-        batchService.writeBatchStatus(MapBuilder.<String, Object>createInstance()
+        batchService.writeBatchStatus(MapBuilder.createInstance()
                                                 .add("bat_svr"  , batSvr   )
                                                 .add("bat_id"   , batId    )
                                                 .add("exe_stp"  , exe_stp  )

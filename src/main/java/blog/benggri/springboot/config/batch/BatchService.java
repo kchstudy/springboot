@@ -65,7 +65,7 @@ public class BatchService {
      */
     private List<Map<String, Object>> getBatchList() {
         STEP(log, "BATCH LIST");
-        return batchDao.getBatchList(MapBuilder.<String,Object>createInstance()
+        return batchDao.getBatchList(MapBuilder.createInstance()
                                                .add("bat_svr", getSvrIp())
                                                .toMap());
     }
