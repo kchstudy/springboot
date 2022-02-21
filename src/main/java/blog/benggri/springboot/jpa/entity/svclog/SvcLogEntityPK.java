@@ -1,11 +1,11 @@
-package blog.benggri.springboot.biz.jpa.entity.log;
+package blog.benggri.springboot.jpa.entity.svclog;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class LogEntityPK implements Serializable {
+public class SvcLogEntityPK implements Serializable {
 
     private static final long serialVersionUID = -206076836487207024L;
 

@@ -1,4 +1,4 @@
-package blog.benggri.springboot.biz.jpa.entity.usr;
+package blog.benggri.springboot.jpa.entity.usr;
 
 import lombok.Data;
 

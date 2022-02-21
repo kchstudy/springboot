@@ -1,7 +1,7 @@
 package blog.benggri.springboot.config.aop;
 
-import blog.benggri.springboot.biz.jpa.entity.log.LogEntity;
-import blog.benggri.springboot.biz.jpa.repository.log.LogRepository;
+import blog.benggri.springboot.jpa.entity.svclog.SvcLogEntity;
+import blog.benggri.springboot.jpa.repository.svclog.SvcLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import static blog.benggri.springboot.comm.util.DateUtil.getFullTime;
 import static blog.benggri.springboot.comm.util.DateUtil.getSimpleDate;
-import static blog.benggri.springboot.comm.util.StringUtil.STEP;
 import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 
 @Slf4j
@@ -24,11 +23,11 @@ import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 public class LogAspect {
 
     @Autowired
-    private LogRepository logRepository;
+    private SvcLogRepository svcLogRepository;
 
     @Around("execution(* blog.benggri.springboot..*Controller.*(..))")
     public Object logging(ProceedingJoinPoint pjp) throws Throwable {
-        LogEntity logEntity = LogEntity.builder()
+        SvcLogEntity svcLogEntity = SvcLogEntity.builder()
                                        .logDt(getSimpleDate())
                                        .cmpnnt(pjp.getTarget().getClass().getSimpleName())
                                        .method(pjp.getSignature().getName())
@@ -41,21 +40,21 @@ public class LogAspect {
         for (Object arg : args) {
             sb.append(arg.toString());
         }
-        logEntity.setReqCntnt(sb.toString());
+        svcLogEntity.setReqCntnt(sb.toString());
 
-        logEntity = logRepository.save(logEntity);
+        svcLogEntity = svcLogRepository.save(svcLogEntity);
 
         HttpServletRequest request = (HttpServletRequest) args[0];
-        request.setAttribute("log_dt", logEntity.getLogDt());
-        request.setAttribute("log_sq", logEntity.getLogSq());
+        request.setAttribute("log_dt", svcLogEntity.getLogDt());
+        request.setAttribute("log_sq", svcLogEntity.getLogSq());
 
         Object result = pjp.proceed(); // 실제 컨트롤러 로직이 수행되는 구간
 
-        logEntity.setResDt(getFullTime());
-        logEntity.setSttsCd("2000");
-        logEntity.setResCntnt(result.toString());
+        svcLogEntity.setResDt(getFullTime());
+        svcLogEntity.setSttsCd("2000");
+        svcLogEntity.setResCntnt(result.toString());
 
-        logRepository.save(logEntity);
+        svcLogRepository.save(svcLogEntity);
 
         return result;
     }
@@ -67,11 +66,11 @@ public class LogAspect {
         String log_dt = nvl(request.getAttribute("log_dt"));
         Long log_sq = Long.parseLong(nvl(request.getAttribute("log_sq")));
 
-        LogEntity logEntity = logRepository.findByLogDtAndLogSq(log_dt, log_sq);
-        logEntity.setResDt(getFullTime());
-        logEntity.setResCntnt(ex.toString());
-        logEntity.setSttsCd("9000");
-        logRepository.save(logEntity);
+        SvcLogEntity svcLogEntity = svcLogRepository.findByLogDtAndLogSq(log_dt, log_sq);
+        svcLogEntity.setResDt(getFullTime());
+        svcLogEntity.setResCntnt(ex.toString());
+        svcLogEntity.setSttsCd("9000");
+        svcLogRepository.save(svcLogEntity);
     }
 
 }

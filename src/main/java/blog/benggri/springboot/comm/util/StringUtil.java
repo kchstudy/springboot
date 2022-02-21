@@ -66,19 +66,6 @@ public class StringUtil {
     public static String nvl(Object obj) {
         return nvl(obj, "");
     }
-    
-    /**
-     * 진행단계표시
-     * @param str
-     */
-    public static void STEP(String str) {
-        log.debug("STEP[" + str + "]");
-    }
-
-
-    public static void STEP(Object cls, String str) {
-        log.debug("Class["+cls.getClass().getSimpleName()+"]STEP[" + str + "]");
-    }
 
     /**
      * 진행단계표시
@@ -93,16 +80,21 @@ public class StringUtil {
      * @param str
      */
     public static void STEP(Logger logger, Level lev, String str) {
-        if ( "ERROR".equals(lev.toString()) ) {
-            logger.error(str);
-        } else if ( "WARN".equals(lev.toString()) ) {
-            logger.warn(str);
-        } else if ( "INFO".equals(lev.toString()) ) {
-            logger.info(str);
-        } else if ( "DEBUG".equals(lev.toString()) ) {
-            logger.debug(str);
-        } else if ( "TRACE".equals(lev.toString()) ) {
-            logger.trace(str);
+        if ( Level.ERROR.equals(lev) ) {
+//            logger.error(str);
+            log.error("[class]["+logger.getName()+"][log]["+str+"]");
+        } else if ( Level.WARN.equals(lev) ) {
+//            logger.warn(str);
+            log.warn("[class]["+logger.getName()+"][log]["+str+"]");
+        } else if ( Level.INFO.equals(lev) ) {
+//            logger.info(str);
+            log.info("[class]["+logger.getName()+"][log]["+str+"]");
+        } else if ( Level.DEBUG.equals(lev) ) {
+//            logger.debug(str);
+            log.debug("[class]["+logger.getName()+"][log]["+str+"]");
+        } else if ( Level.TRACE.equals(lev) ) {
+//            logger.trace(str);
+            log.trace("[class]["+logger.getName()+"][log]["+str+"]");
         }
     }
 

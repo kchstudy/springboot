@@ -1,8 +1,8 @@
-package blog.benggri.springboot.biz.jpa.entity.usr;
+package blog.benggri.springboot.jpa.entity.usr;
 
 import java.time.LocalDateTime;
 
-import blog.benggri.springboot.biz.jpa.entity.comm.DefaultEntity;
+import blog.benggri.springboot.jpa.entity.comm.DefaultEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

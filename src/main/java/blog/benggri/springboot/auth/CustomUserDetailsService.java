@@ -1,7 +1,7 @@
 package blog.benggri.springboot.auth;
 
-import blog.benggri.springboot.biz.jpa.entity.usr.UsrEntity;
-import blog.benggri.springboot.biz.jpa.repository.usr.UsrRepository;
+import blog.benggri.springboot.jpa.entity.usr.UsrEntity;
+import blog.benggri.springboot.jpa.repository.usr.UsrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

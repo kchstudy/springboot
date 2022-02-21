@@ -1,6 +1,6 @@
-package blog.benggri.springboot.biz.jpa.repository.usr;
+package blog.benggri.springboot.jpa.repository.usr;
 
-import blog.benggri.springboot.biz.jpa.entity.usr.UsrEntity;
+import blog.benggri.springboot.jpa.entity.usr.UsrEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

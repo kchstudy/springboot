@@ -1,6 +1,6 @@
-package blog.benggri.springboot.biz.jpa.repository.token;
+package blog.benggri.springboot.jpa.repository.token;
 
-import blog.benggri.springboot.biz.jpa.entity.token.TokenEntity;
+import blog.benggri.springboot.jpa.entity.token.TokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

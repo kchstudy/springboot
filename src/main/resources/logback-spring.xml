@@ -18,6 +18,27 @@
         </rollingPolicy>
     </appender>
 
+    <!--로그 파일 저장 위치-->
+    <property name="STEP_LOG_FILE" value="/blog/benggri/springboot/logs/step.log"/>
+
+    <appender name="STEP_ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${STEP_LOG_FILE}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${STEP_LOG_FILE}.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="blog.benggri.springboot.comm.util.StringUtil" level="debug" additivity="false">
+        <!-- ref="appender name 지정" -->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="STEP_ROLLING-FILE"/>
+    </logger>
+
     <logger name="blog.benggri.springboot" level="debug" additivity="false">
         <!-- ref="appender name 지정" -->
         <appender-ref ref="CONSOLE"/>
