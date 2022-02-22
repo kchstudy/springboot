@@ -4,7 +4,6 @@
 
 * docs
   * app.yml
-  * ddl.sql
   * Eclipse_Plugins.md
   * Intellij_CE_Plugins.md
   * LocalSetting.md

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+import static blog.benggri.springboot.comm.util.ParamUtil.checkParam;
 import static blog.benggri.springboot.comm.util.StringUtil.isEmptyObj;
 import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 
@@ -16,7 +17,7 @@ import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 public class CodeService {
 
     @Autowired
-    CodeDao codeDao; /* 공통코드 DAO */
+    private CodeDao codeDao;
 
     /**
      * 공통그룹코드 목록 정보 조회
@@ -24,18 +25,6 @@ public class CodeService {
      * @return
      */
     public List<Map<String, Object>> getGrpCdList(Map<String, Object> prmMap){
-        return codeDao.getGrpCdList(prmMap);
-    }
-
-    /**
-     * 공통그룹코드 목록 정보 조회
-     * @param grpCd
-     * @return
-     */
-    public List<Map<String, Object>> getGrpCdList(String grpCd){
-        Map<String, Object> prmMap = MapBuilder.createInstance()
-                                               .add("grp_cd" , grpCd)
-                                               .toMap();
         return codeDao.getGrpCdList(prmMap);
     }
 
@@ -50,14 +39,14 @@ public class CodeService {
 
     /**
      * 공통그룹코드 정보 조회
-     * @param grpCd
+     * @param grp_cd
      * @return
      */
-    public Map<String, Object> getGrpCd(String grpCd){
+    public Map<String, Object> getGrpCd(String grp_cd){
         Map<String, Object> prmMap = MapBuilder.createInstance()
-                                               .add("grp_cd" , grpCd)
+                                               .add("grp_cd" , grp_cd)
                                                .toMap();
-        return codeDao.getGrpCd(prmMap);
+        return getGrpCd(prmMap);
     }
 
     /**
@@ -71,14 +60,14 @@ public class CodeService {
 
     /**
      * 공통코드 목록 정보 조회
-     * @param grpCd
+     * @param grp_cd
      * @return
      */
-    public List<Map<String, Object>> getCdList(String grpCd){
+    public List<Map<String, Object>> getCdList(String grp_cd){
         Map<String, Object> prmMap = MapBuilder.createInstance()
-                                               .add("grp_cd" , grpCd)
+                                               .add("grp_cd" , grp_cd)
                                                .toMap();
-        return codeDao.getCdList(prmMap);
+        return getCdList(prmMap);
     }
 
     /**
@@ -92,16 +81,16 @@ public class CodeService {
 
     /**
      * 공통코드 정보 조회
-     * @param grpCd
+     * @param grp_cd
      * @param cd
      * @return
      */
-    public Map<String, Object> getCd(String grpCd, String cd){
+    public Map<String, Object> getCd(String grp_cd, String cd){
         Map<String, Object> prmMap = MapBuilder.createInstance()
-                                               .add("grp_cd" , grpCd)
+                                               .add("grp_cd" , grp_cd)
                                                .add("cd"     , cd)
                                                .toMap();
-        return codeDao.getCd(prmMap);
+        return getCd(prmMap);
     }
 
     /**
@@ -110,7 +99,10 @@ public class CodeService {
      * @return
      */
     public String getCdVal(Map<String, Object> prmMap){
-        Map<String, Object> code = codeDao.getCd(prmMap);
+        String prmString[] = {"grp_cd:그룹_코드", "cd:코드"};
+        checkParam(prmMap, prmString);
+
+        Map<String, Object> code = getCd(prmMap);
         if ( isEmptyObj(code) ) {
             return "";
         }
@@ -119,20 +111,15 @@ public class CodeService {
 
     /**
      * 공통코드 코드값 정보 조회
-     * @param grpCd
+     * @param grp_cd
      * @param cd
      * @return
      */
-    public String getCdVal(String grpCd, String cd){
-        Map<String, Object> prmMap = MapBuilder.createInstance()
-                                               .add("grp_cd" , grpCd)
-                                               .add("cd"     , cd)
-                                               .toMap();
-        Map<String, Object> code = codeDao.getCd(prmMap);
-        if ( isEmptyObj(code) ) {
-            return "";
-        }
-        return nvl(code.get("cd_v"));
+    public String getCdVal(String grp_cd, String cd){
+        return getCdVal(MapBuilder.createInstance()
+                                  .add("grp_cd" , grp_cd)
+                                  .add("cd"     , cd)
+                                  .toMap());
     }
 
 }

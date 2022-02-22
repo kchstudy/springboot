@@ -19,7 +19,7 @@
              , note      as note      /* text-비고 */
              , reg_dt    as reg_dt    /* timestamp-등록_일시 */
              , chg_dt    as chg_dt    /* timestamp-수정_일시 */
-          from svc_bat /* 배치기본정보 */
+          from bat /* 배치기본정보 */
          where 1=1
            and bat_svr = (select svr_nm as svr_nm /* 서버_명 */
                             from svr /* 서버정보 */
@@ -32,7 +32,7 @@
 
     <update id="updateBatchStepInfo" parameterType="map">
         update /* BatchDao.updateBatchStepInfo */
-               svc_bat /* 배치기본정보 */
+               bat /* 배치기본정보 */
            set exe_stp = #{exe_stp} /* 실행_단계 */
              , chg_dt  = now()     /* 수정_일시 */
          where 1=1
@@ -42,7 +42,7 @@
 
     <update id="updateBatchSchInfo" parameterType="map">
         update /* BatchDao.updateBatchSchInfo */
-               svc_bat /* 배치기본정보 */
+               bat /* 배치기본정보 */
            set bat_sch = #{bat_sch} /* 배치_스케쥴 */
              , chg_dt  = now()      /* 수정_일시 */
          where 1=1
@@ -73,7 +73,7 @@
              , note          as note          /* text-비고 */
              , reg_dt        as reg_dt        /* timestamp-등록_일시 */
              , chg_dt        as chg_dt        /* timestamp-수정_일시 */
-          from svc_bat_chg_req /* 배치변경요청 */
+          from bat_chg_req /* 배치변경요청 */
          where 1=1
            and bat_svr = #{bat_svr} /* 배치_서버 */
            and exe_stp = '1000'     /* 실행_단계 */
@@ -81,7 +81,7 @@
 
     <update id="updateBatchChgInfo" parameterType="map">
         update /* BatchDao.updateBatchChgInfo */
-               svc_bat_chg_req /* 배치변경요청 */
+               bat_chg_req /* 배치변경요청 */
            set exe_stp      = #{exe_stp}   /* 실행_단계 */
              , exe_rslt_msg = #{exe_rslt_msg} /* 결과_메시지 */
          where 1=1
@@ -93,7 +93,7 @@
 
     <insert id="createBatchExeHis" parameterType="map">
         insert /* BatchDao.createBatchExeHis */
-          into svc_bat_exe_h /* 배치실행이력 */ (
+          into bat_exe_h /* 배치실행이력 */ (
                bat_svr     /* varchar-배치_서버 */
              , bat_id      /* varchar-배치_ID */
              , exe_stp     /* varchar-실행_단계 */

@@ -290,7 +290,7 @@ CREATE OR REPLACE FUNCTION public.encrypt(txt text)
  LANGUAGE sql
  IMMUTABLE STRICT
 AS $function$
-select encode(public.encrypt(txt::bytea, public.digest('support', 'sha256'), 'aes'::text), 'base64') AS result;
+select encode(public.encrypt(txt::bytea, public.digest('##########', 'sha256'), 'aes'::text), 'base64') AS result;
 $function$
 ;
 

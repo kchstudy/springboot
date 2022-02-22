@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.business.usr.UsrDao">
+
+    <select id="getUsr" parameterType="map" resultType="map">
+        select /* UsrDao.getUsr */
+               usr_sq      as usr_sq      /* numeric-사용자_순번 */
+             , usr_id      as usr_id      /* varchar-사용자_ID */
+             , enc_usr_pwd as enc_usr_pwd /* varchar-암호화_사용자_비밀번호 */
+             , usr_cls_cd  as usr_cls_cd  /* varchar-사용자_구분_코드 */
+             , pwd_chg_dt  as pwd_chg_dt  /* varchar-비밀번호_변경_일자 */
+             , pwd_expr_dt as pwd_expr_dt /* varchar-비밀번호_만료_일자 */
+             , reg_dt      as reg_dt      /* timestamp-등록_일시 */
+             , chg_dt      as chg_dt      /* timestamp-수정_일시 */
+          from usr /* 사용자 */
+         where 1=1
+           and usr_id = #{usr_id} /* varchar-사용자_ID */
+    </select>
+
+    <select id="getUsrInfo" parameterType="map" resultType="map">
+        select /* UsrDao.getUsrInfo */
+               usr_sq         as usr_sq         /* numeric-사용자_순번 */
+             , usr_nm         as usr_nm         /* varchar-사용자_이름 */
+             , enc_usr_phn_no as enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , enc_usr_email  as enc_usr_email  /* varchar-암호화_사용자_이메일 */
+             , reg_dt         as reg_dt         /* timestamp-등록_일시 */
+             , chg_dt         as chg_dt         /* timestamp-수정_일시 */
+          from usr_info /* 사용자_정보 */
+         where 1=1
+           and usr_sq = cast(#{usr_sq} as numeric)
+    </select>
+
+</mapper>
