@@ -75,8 +75,7 @@ public class AuthService {
     }
 
     @Transactional(value="basicTransactionManager")
-    public Map<String, Object> login(Map<String, Object> prmMap) {
-        LoginReqVo req = LoginReqVo.builder().usrId( nvl(prmMap.get("usr_id")) ).encUsrPwd( nvl(prmMap.get("enc_usr_pwd")) ).build();
+    public Map<String, Object> login(LoginReqVo req) {
         STEP(log, "1. Login ID/PW 를 기반으로 AuthenticationToken 생성");
         UsernamePasswordAuthenticationToken authenticationToken = req.toAuthentication();
 
@@ -95,14 +94,14 @@ public class AuthService {
 
         tokenRepository.save(refreshToken);
 
-        Optional<UsrEntity> usrEntity = usrRepository.findByUsrId( nvl(prmMap.get("usr_id")) );
+        Optional<UsrEntity> usrEntity = usrRepository.findByUsrId( req.getUsrId() );
         UsrLoginEntity usrLoginEntity = UsrLoginEntity.builder().loginDt( getSimpleDate() ).usrSq( usrEntity.get().getUsrSq() ).build();
         usrLoginRepository.save(usrLoginEntity); // 사용자 로그인 이력
 
         STEP(log, "5. 토큰 발급");
         // 5. 토큰 발급
         return MapBuilder.createInstance()
-                         .add( "usr_id"                  , nvl(prmMap.get("usr_id"))         )
+                         .add( "usr_id"                  , req.getUsrId()                    )
                          .add( "grant_type"              , tokenVo.getGrantType()            )
                          .add( "access_token"            , tokenVo.getAccessToken()          )
                          .add( "refresh_token"           , tokenVo.getRefreshToken()         )

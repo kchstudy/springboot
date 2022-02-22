@@ -17,20 +17,41 @@
              , chg_dt      as chg_dt      /* timestamp-수정_일시 */
           from usr /* 사용자 */
          where 1=1
-           and usr_id = #{usr_id} /* varchar-사용자_ID */
+           and usr_sq = cast(#{usr_sq} as numeric)
     </select>
 
     <select id="getUsrInfo" parameterType="map" resultType="map">
         select /* UsrDao.getUsrInfo */
-               usr_sq         as usr_sq         /* numeric-사용자_순번 */
-             , usr_nm         as usr_nm         /* varchar-사용자_이름 */
-             , enc_usr_phn_no as enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
-             , enc_usr_email  as enc_usr_email  /* varchar-암호화_사용자_이메일 */
-             , reg_dt         as reg_dt         /* timestamp-등록_일시 */
-             , chg_dt         as chg_dt         /* timestamp-수정_일시 */
+               usr_sq                  as usr_sq     /* numeric-사용자_순번 */
+             , usr_nm                  as usr_nm     /* varchar-사용자_이름 */
+             , decrypt(enc_usr_phn_no) as usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , decrypt(enc_usr_email)  as usr_email  /* varchar-암호화_사용자_이메일 */
+             , reg_dt                  as reg_dt     /* timestamp-등록_일시 */
+             , chg_dt                  as chg_dt     /* timestamp-수정_일시 */
           from usr_info /* 사용자_정보 */
          where 1=1
            and usr_sq = cast(#{usr_sq} as numeric)
     </select>
+
+    <update id="updateUsrInfo" parameterType="map">
+        update /* UsrDao.updateUsrInfo */
+               usr_info /* 사용자_정보 */
+           set usr_nm         = #{usr_nm}              /* varchar_사용자_이름 */
+             , enc_usr_phn_no = encrypt(#{usr_phn_no}) /* varchar_암호화_사용자_전화_번호 */
+             , enc_usr_email  = encrypt(#{usr_email})  /* varchar_암호화_사용자_이메일 */
+             , chg_dt         = now()                  /* timestamp_수정_일시 */
+         where 1=1
+           and usr_sq = cast(#{usr_sq} as numeric)
+    </update>
+
+    <update id="resetUsrPwd" parameterType="map">
+        update /* UsrDao.resetUsrPwd */
+               usr /* 사용자 */
+           set enc_usr_pwd = #{usr_pwd}     /* varchar-암호화_사용자_비밀번호 */
+             , pwd_chg_dt  = #{pwd_chg_dt}  /* varchar-비밀번호_변경_일자 */
+             , pwd_expr_dt = #{pwd_expr_dt} /* varchar-비밀번호_만료_일자 */
+         where 1=1
+           and usr_sq = cast(#{usr_sq} as numeric)
+    </update>
 
 </mapper>

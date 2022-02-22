@@ -10,4 +10,7 @@ public interface UsrDao {
     Map<String, Object> getUsr(Map<String, Object> prmMap);
     Map<String, Object> getUsrInfo(Map<String, Object> prmMap);
 
+    int updateUsrInfo(Map<String, Object> prmMap);
+    int resetUsrPwd(Map<String, Object> prmMap);
+
 }

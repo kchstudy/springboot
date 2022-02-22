@@ -1,5 +1,7 @@
 package blog.benggri.springboot.business.usr;
 
+import blog.benggri.springboot.business.usr.vo.ResetUsrPwdReqVo;
+import blog.benggri.springboot.business.usr.vo.UpdateUsrInfoReqVo;
 import blog.benggri.springboot.business.usr.vo.UsrInfoReqVo;
 import blog.benggri.springboot.comm.constraint.ResEntity;
 import blog.benggri.springboot.comm.constraint.ResEnum;
@@ -28,6 +30,24 @@ public class UsrController {
         @RequestBody UsrInfoReqVo vo
     ) {
         Map<String, Object> result = usrService.getUsrInfo(objToMap(vo));
+        return new ResEntity(result, ResEnum.SUCCESS);
+    }
+
+    @RequestMapping(value="updateUsrInfo.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    public ResponseEntity updateUsrInfo(
+        HttpServletRequest request,
+        @RequestBody UpdateUsrInfoReqVo vo
+    ) {
+        Map<String, Object> result = usrService.updateUsrInfo(objToMap(vo));
+        return new ResEntity(result, ResEnum.SUCCESS);
+    }
+
+    @RequestMapping(value="resetUsrPwd.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    public ResponseEntity resetUsrPwd(
+        HttpServletRequest request,
+        @RequestBody ResetUsrPwdReqVo vo
+    ) {
+        Map<String, Object> result = usrService.resetUsrPwd(objToMap(vo));
         return new ResEntity(result, ResEnum.SUCCESS);
     }
 

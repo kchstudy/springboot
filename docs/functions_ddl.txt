@@ -54,6 +54,15 @@ CREATE OR REPLACE FUNCTION public.digest(bytea, text)
 AS '$libdir/pgcrypto', $function$pg_digest$function$
 ;
 
+CREATE OR REPLACE FUNCTION public.decrypt(txt text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE STRICT
+AS $function$
+select convert_from(public.decrypt(decode(txt, 'base64')::bytea, public.digest('support', 'sha256'), 'aes'::text), 'utf-8') AS result;
+$function$
+;
+
 CREATE OR REPLACE FUNCTION public.encrypt(bytea, bytea, text)
  RETURNS bytea
  LANGUAGE c

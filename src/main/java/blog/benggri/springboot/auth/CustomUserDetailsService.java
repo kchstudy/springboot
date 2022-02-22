@@ -33,8 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         STEP(log, "[entityMember]["+entityMember+"]");
 
         return usrRepository.findByUsrId(username)
-                               .map(this::createUserDetails)
-                               .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+                            .map(this::createUserDetails)
+                            .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
     }
 
     private UserDetails createUserDetails(UsrEntity usrEntity) {
