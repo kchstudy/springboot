@@ -1,7 +1,4 @@
 spring:
-  web:
-    resources:
-      static-locations: classpath:/web/resources/
   servlet:
     multipart:
       max-file-size: 200MB
