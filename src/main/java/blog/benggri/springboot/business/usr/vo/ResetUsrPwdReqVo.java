@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value="사용자정보수정",description="사용자정보수정 Model")
+@ApiModel(value="사용자비밀번호초기화",description="사용자비밀번호초기화 Model")
 public class ResetUsrPwdReqVo {
 
     @ApiModelProperty(value="사용자_순번", required=true, example="1")

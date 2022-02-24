@@ -8,53 +8,53 @@
     <insert id="backupApi" parameterType="map">
         insert /* BackUpDao.backupApi */
           into api_h /* API_변경이력 */ (
-              hst_note       /* text_이력_비고 */
-            , api_id         /* varchar_API_ID */
-            , api_tp         /* varchar_API_타입 */
-            , api_nm         /* varchar_API_이름 */
-            , api_desc       /* text_API_설명 */
-            , host           /* varchar_host */
-            , ip             /* varchar_ip */
-            , path           /* varchar_path */
-            , call_svr_nm    /* varchar_호출_서버_명 */
-            , enc_cert_key   /* varchar_암호화_인증_키 */
-            , cert_k         /* varchar_인증_키 */
-            , cert_st_dt     /* varchar_인증_시작_일자 */
-            , cert_ed_dt     /* varchar_인증_종료_일자 */
-            , send_wrk_path  /* varchar_송신_작업_경로 */
-            , recv_wrk_path  /* varchar_수신_작업_경로 */
-            , send_path      /* varchar_송신_경로 */
-            , recv_path      /* varchar_수신_경로 */
-            , id             /* varchar_ID */
-            , enc_pwd        /* varchar_암호화_비밀번호 */
-            , use_yn         /* varchar_사용_여부 */
-            , note           /* text_비고 */
-            , reg_dt         /* timestamp_등록_일시 */
-            , chg_dt         /* timestamp_수정_일시 */
+               hst_note      /* text-이력_비고 */
+             , api_id        /* varchar-API_ID */
+             , api_tp        /* varchar-API_타입 */
+             , api_nm        /* varchar-API_이름 */
+             , api_desc      /* text-API_설명 */
+             , host          /* varchar-host */
+             , ip            /* varchar-ip */
+             , path          /* varchar-path */
+             , call_svr_nm   /* varchar-호출_서버_명 */
+             , enc_cert_key  /* varchar-암호화_인증_키 */
+             , cert_k        /* varchar-인증_키 */
+             , cert_st_dt    /* varchar-인증_시작_일자 */
+             , cert_ed_dt    /* varchar-인증_종료_일자 */
+             , send_wrk_path /* varchar-송신_작업_경로 */
+             , recv_wrk_path /* varchar-수신_작업_경로 */
+             , send_path     /* varchar-송신_경로 */
+             , recv_path     /* varchar-수신_경로 */
+             , id            /* varchar-ID */
+             , enc_pwd       /* varchar-암호화_비밀번호 */
+             , use_yn        /* varchar-사용_여부 */
+             , note          /* text-비고 */
+             , org_reg_dt    /* timestamp-원본_등록_일시 */
+             , org_chg_dt    /* timestamp-원본_수정_일시 */
         )
-        select #{hst_note}   as hst_note      /* text_이력_비고 */
-             , api_id        as api_id        /* varchar_API_ID */
-             , api_tp        as api_tp        /* varchar_API_타입 */
-             , api_nm        as api_nm        /* varchar_API_이름 */
-             , api_desc      as api_desc      /* text_API_설명 */
-             , host          as host          /* varchar_host */
-             , ip            as ip            /* varchar_ip */
-             , path          as path          /* varchar_path */
-             , call_svr_nm   as call_svr_nm   /* varchar_호출_서버_명 */
-             , enc_cert_key  as enc_cert_key  /* varchar_암호화_인증_키 */
-             , cert_k        as cert_k        /* varchar_인증_키 */
-             , cert_st_dt    as cert_st_dt    /* varchar_인증_시작_일자 */
-             , cert_ed_dt    as cert_ed_dt    /* varchar_인증_종료_일자 */
-             , send_wrk_path as send_wrk_path /* varchar_송신_작업_경로 */
-             , recv_wrk_path as recv_wrk_path /* varchar_수신_작업_경로 */
-             , send_path     as send_path     /* varchar_송신_경로 */
-             , recv_path     as recv_path     /* varchar_수신_경로 */
-             , id            as id            /* varchar_ID */
-             , enc_pwd       as enc_pwd       /* varchar_암호화_비밀번호 */
-             , use_yn        as use_yn        /* varchar_사용_여부 */
-             , note          as note          /* text_비고 */
-             , reg_dt        as reg_dt        /* timestamp_등록_일시 */
-             , chg_dt        as chg_dt        /* timestamp_수정_일시 */
+        select #{hst_note}   as hst_note      /* text-이력_비고 */
+             , api_id        as api_id        /* varchar-API_ID */
+             , api_tp        as api_tp        /* varchar-API_타입 */
+             , api_nm        as api_nm        /* varchar-API_이름 */
+             , api_desc      as api_desc      /* text-API_설명 */
+             , host          as host          /* varchar-host */
+             , ip            as ip            /* varchar-ip */
+             , path          as path          /* varchar-path */
+             , call_svr_nm   as call_svr_nm   /* varchar-호출_서버_명 */
+             , enc_cert_key  as enc_cert_key  /* varchar-암호화_인증_키 */
+             , cert_k        as cert_k        /* varchar-인증_키 */
+             , cert_st_dt    as cert_st_dt    /* varchar-인증_시작_일자 */
+             , cert_ed_dt    as cert_ed_dt    /* varchar-인증_종료_일자 */
+             , send_wrk_path as send_wrk_path /* varchar-송신_작업_경로 */
+             , recv_wrk_path as recv_wrk_path /* varchar-수신_작업_경로 */
+             , send_path     as send_path     /* varchar-송신_경로 */
+             , recv_path     as recv_path     /* varchar-수신_경로 */
+             , id            as id            /* varchar-ID */
+             , enc_pwd       as enc_pwd       /* varchar-암호화_비밀번호 */
+             , use_yn        as use_yn        /* varchar-사용_여부 */
+             , note          as note          /* text-비고 */
+             , reg_dt        as org_reg_dt    /* timestamp-원본_등록_일시 */
+             , chg_dt        as org_chg_dt    /* timestamp-원본_수정_일시 */
           from api /* API */
          where 1=1
            and api_id = #{api_id} /* varchar_API_ID */
@@ -63,33 +63,33 @@
     <insert id="backupBat" parameterType="map">
         insert /* BackUpDao.backupBat */
           into bat_h /* 배치_변경이력 */ (
-               hst_note    /* text_이력_비고 */
-             , bat_svr     /* varchar_배치_서버 */
-             , bat_id      /* varchar_배치_ID */
-             , bat_nm      /* varchar_배치_명 */
-             , bat_desc    /* varchar_배치_설명 */
-             , bat_agent   /* varchar_배치_에이전트 */
-             , bat_sch     /* varchar_배치_스케쥴 */
-             , use_yn      /* varchar_사용_여부 */
-             , exe_stp     /* varchar_실행_단계 */
-             , bsc_prm     /* text_기본_파라미터 */
-             , note        /* text_비고 */
-             , reg_dt      /* timestamp_등록_일시 */
-             , chg_dt      /* timestamp_수정_일시 */
+               hst_note    /* text-이력_비고 */
+             , bat_svr     /* varchar-배치_서버 */
+             , bat_id      /* varchar-배치_ID */
+             , bat_nm      /* varchar-배치_명 */
+             , bat_desc    /* varchar-배치_설명 */
+             , bat_agent   /* varchar-배치_에이전트 */
+             , bat_sch     /* varchar-배치_스케쥴 */
+             , use_yn      /* varchar-사용_여부 */
+             , exe_stp     /* varchar-실행_단계 */
+             , bsc_prm     /* text-기본_파라미터 */
+             , note        /* text-비고 */
+             , org_reg_dt  /* timestamp-원본_등록_일시 */
+             , org_chg_dt  /* timestamp-원본_수정_일시 */
         )
-        select #{hst_note} as hst_note  /* text_이력_비고 */
-             , bat_svr     as bat_svr   /* varchar_배치_서버 */
-             , bat_id      as bat_id    /* varchar_배치_ID */
-             , bat_nm      as bat_nm    /* varchar_배치_명 */
-             , bat_desc    as bat_desc  /* varchar_배치_설명 */
-             , bat_agent   as bat_agent /* varchar_배치_에이전트 */
-             , bat_sch     as bat_sch   /* varchar_배치_스케쥴 */
-             , use_yn      as use_yn    /* varchar_사용_여부 */
-             , exe_stp     as exe_stp   /* varchar_실행_단계 */
-             , bsc_prm     as bsc_prm   /* text_기본_파라미터 */
-             , note        as note      /* text_비고 */
-             , reg_dt      as reg_dt    /* timestamp_등록_일시 */
-             , chg_dt      as chg_dt    /* timestamp_수정_일시 */
+        select #{hst_note} as hst_note   /* text-이력_비고 */
+             , bat_svr     as bat_svr    /* varchar-배치_서버 */
+             , bat_id      as bat_id     /* varchar-배치_ID */
+             , bat_nm      as bat_nm     /* varchar-배치_명 */
+             , bat_desc    as bat_desc   /* varchar-배치_설명 */
+             , bat_agent   as bat_agent  /* varchar-배치_에이전트 */
+             , bat_sch     as bat_sch    /* varchar-배치_스케쥴 */
+             , use_yn      as use_yn     /* varchar-사용_여부 */
+             , exe_stp     as exe_stp    /* varchar-실행_단계 */
+             , bsc_prm     as bsc_prm    /* text-기본_파라미터 */
+             , note        as note       /* text-비고 */
+             , reg_dt      as org_reg_dt /* timestamp-원본_등록_일시 */
+             , chg_dt      as org_chg_dt /* timestamp-원본_수정_일시 */
           from bat /* 배치 */
          where 1=1
            and bat_svr = #{bat_svr} /* varchar_배치_서버 */
@@ -99,25 +99,25 @@
     <insert id="backupUsr" parameterType="map">
         insert /* BackUpDao.backupUsr */
           into usr_h /* 사용자_변경이력 */ (
-               hst_note    /* text_이력_비고 */
-             , usr_sq      /* numeric_사용자_순번 */
-             , usr_id      /* varchar_사용자_ID */
-             , enc_usr_pwd /* varchar_암호화_사용자_비밀번호 */
-             , usr_cls_cd  /* varchar_사용자_구분_코드 */
-             , pwd_chg_dt  /* varchar_비밀번호_변경_일자 */
-             , pwd_expr_dt /* varchar_비밀번호_만료_일자 */
-             , reg_dt      /* timestamp_등록_일시 */
-             , chg_dt      /* timestamp_수정_일시 */
+               hst_note    /* text-이력_비고 */
+             , usr_sq      /* numeric-사용자_순번 */
+             , usr_id      /* varchar-사용자_ID */
+             , enc_usr_pwd /* varchar-암호화_사용자_비밀번호 */
+             , usr_cls_cd  /* varchar-사용자_구분_코드 */
+             , pwd_chg_dt  /* varchar-비밀번호_변경_일자 */
+             , pwd_expr_dt /* varchar-비밀번호_만료_일자 */
+             , org_reg_dt  /* timestamp-원본_등록_일시 */
+             , org_chg_dt  /* timestamp-원본_수정_일시 */
         )
-        select #{hst_note} as hst_note    /* text_이력_비고 */
-             , usr_sq      as usr_sq      /* numeric_사용자_순번 */
-             , usr_id      as usr_id      /* varchar_사용자_ID */
-             , enc_usr_pwd as enc_usr_pwd /* varchar_암호화_사용자_비밀번호 */
-             , usr_cls_cd  as usr_cls_cd  /* varchar_사용자_구분_코드 */
-             , pwd_chg_dt  as pwd_chg_dt  /* varchar_비밀번호_변경_일자 */
-             , pwd_expr_dt as pwd_expr_dt /* varchar_비밀번호_만료_일자 */
-             , reg_dt      as reg_dt      /* timestamp_등록_일시 */
-             , chg_dt      as chg_dt      /* timestamp_수정_일시 */
+        select #{hst_note} as hst_note    /* text-이력_비고 */
+             , usr_sq      as usr_sq      /* numeric-사용자_순번 */
+             , usr_id      as usr_id      /* varchar-사용자_ID */
+             , enc_usr_pwd as enc_usr_pwd /* varchar-암호화_사용자_비밀번호 */
+             , usr_cls_cd  as usr_cls_cd  /* varchar-사용자_구분_코드 */
+             , pwd_chg_dt  as pwd_chg_dt  /* varchar-비밀번호_변경_일자 */
+             , pwd_expr_dt as pwd_expr_dt /* varchar-비밀번호_만료_일자 */
+             , reg_dt      as org_reg_dt  /* timestamp-원본_등록_일시 */
+             , chg_dt      as org_chg_dt  /* timestamp-원본_수정_일시 */
           from usr /* 사용자 */
          where 1=1
            and usr_sq = cast(#{usr_sq} as numeric) /* numeric_사용자_순번 */
@@ -126,21 +126,21 @@
     <insert id="backupUsrInfo" parameterType="map">
         insert /* BackUpDao.backupUsrInfo */
           into usr_info_h /* 사용자_정보_변경이력 */ (
-               hst_note       /* text_이력_비고 */
-             , usr_sq         /* numeric_사용자_순번 */
-             , usr_nm         /* varchar_사용자_이름 */
-             , enc_usr_phn_no /* varchar_암호화_사용자_전화_번호 */
-             , enc_usr_email  /* varchar_암호화_사용자_이메일 */
-             , reg_dt         /* timestamp_등록_일시 */
-             , chg_dt         /* timestamp_수정_일시 */
+               hst_note       /* text-이력_비고 */
+             , usr_sq         /* numeric-사용자_순번 */
+             , usr_nm         /* varchar-사용자_이름 */
+             , enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , enc_usr_email  /* varchar-암호화_사용자_이메일 */
+             , org_reg_dt     /* timestamp-원본_등록_일시 */
+             , org_chg_dt     /* timestamp-원본_수정_일시 */
         )
-        select #{hst_note}    as hst_note       /* text_이력_비고 */
-             , usr_sq         as usr_sq         /* numeric_사용자_순번 */
-             , usr_nm         as usr_nm         /* varchar_사용자_이름 */
-             , enc_usr_phn_no as enc_usr_phn_no /* varchar_암호화_사용자_전화_번호 */
-             , enc_usr_email  as enc_usr_email  /* varchar_암호화_사용자_이메일 */
-             , reg_dt         as reg_dt         /* timestamp_등록_일시 */
-             , chg_dt         as chg_dt         /* timestamp_수정_일시 */
+        select #{hst_note}    as hst_note       /* text-이력_비고 */
+             , usr_sq         as usr_sq         /* numeric-사용자_순번 */
+             , usr_nm         as usr_nm         /* varchar-사용자_이름 */
+             , enc_usr_phn_no as enc_usr_phn_no /* varchar-암호화_사용자_전화_번호 */
+             , enc_usr_email  as enc_usr_email  /* varchar-암호화_사용자_이메일 */
+             , reg_dt         as org_reg_dt     /* timestamp-원본_등록_일시 */
+             , chg_dt         as org_chg_dt     /* timestamp-원본_수정_일시 */
           from usr_info /* 사용자_정보 */
          where 1=1
            and usr_sq = cast(#{usr_sq} as numeric) /* numeric_사용자_순번 */

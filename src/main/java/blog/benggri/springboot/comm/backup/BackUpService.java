@@ -31,7 +31,7 @@ public class BackUpService {
 
     private Function<Map<String, Object>, Map<String, Object>> procBackUpFn(BackUpEnum target, String note) {
         Function<Map<String, Object>, Map<String, Object>> result = prmMap -> {
-            prmMap.put("hist_note", note);
+            prmMap.put("hst_note", note);
 
             int res = 0;
             switch (target) {

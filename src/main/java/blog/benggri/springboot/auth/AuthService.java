@@ -5,6 +5,7 @@ import blog.benggri.springboot.auth.vo.LoginResVo;
 import blog.benggri.springboot.auth.vo.SignupReqVo;
 import blog.benggri.springboot.auth.vo.TokenReqVo;
 import blog.benggri.springboot.jpa.entity.usr.UsrLoginEntity;
+import blog.benggri.springboot.jpa.repository.cd.CdRepository;
 import blog.benggri.springboot.jpa.repository.usr.UsrLoginRepository;
 import blog.benggri.springboot.comm.exception.CustomException;
 import blog.benggri.springboot.comm.util.MapBuilder;
@@ -48,6 +49,9 @@ public class AuthService {
     private UsrLoginRepository usrLoginRepository;
 
     @Autowired
+    private CdRepository cdRepository;
+
+    @Autowired
     private final TokenRepository tokenRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -67,6 +71,8 @@ public class AuthService {
         STEP(log, "사용자 정보 등록");
         UsrInfoEntity usrInfo = signupReqVo.toUsrInfo();
         usrInfo.setUsrSq(usr.getUsrSq());
+        usrInfo.setEncUsrEmail(cdRepository.encrypt(usrInfo.getEncUsrEmail()));
+        usrInfo.setEncUsrPhnNo(cdRepository.encrypt(usrInfo.getEncUsrPhnNo()));
         usrInfoRepository.save(usrInfo);
 
         return MapBuilder.<String,Object>createInstance()
