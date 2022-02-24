@@ -24,19 +24,16 @@ public class StringUtil {
         if (obj == null){
             return true;
         }
-
         if (obj instanceof List){
             if (((List) obj).size() == 0){
                 return true;
             }
         }
-
         if (obj instanceof Map){
             if (((Map) obj).isEmpty()){
                 return true;
             }
         }
-
         return "".equals(obj.toString());
     }
 
@@ -50,11 +47,9 @@ public class StringUtil {
         if (obj == null) {
             return defStr;
         }
-
         if ("".equals(obj.toString().trim())) {
             return defStr;
         }
-
         return obj.toString();
     }
 
@@ -81,19 +76,14 @@ public class StringUtil {
      */
     public static void STEP(Logger logger, Level lev, String str) {
         if ( Level.ERROR.equals(lev) ) {
-//            logger.error(str);
             log.error("[class]["+logger.getName()+"][log]["+str+"]");
         } else if ( Level.WARN.equals(lev) ) {
-//            logger.warn(str);
             log.warn("[class]["+logger.getName()+"][log]["+str+"]");
         } else if ( Level.INFO.equals(lev) ) {
-//            logger.info(str);
             log.info("[class]["+logger.getName()+"][log]["+str+"]");
         } else if ( Level.DEBUG.equals(lev) ) {
-//            logger.debug(str);
             log.debug("[class]["+logger.getName()+"][log]["+str+"]");
         } else if ( Level.TRACE.equals(lev) ) {
-//            logger.trace(str);
             log.trace("[class]["+logger.getName()+"][log]["+str+"]");
         }
     }
