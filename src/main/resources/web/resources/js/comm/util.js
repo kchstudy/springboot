@@ -139,4 +139,32 @@ cm_util.prototype.rpad = function( str, pStr, len ) {
     return str+temp;
 };
 
+cm_util.prototype.getCookie = function(name) {
+  let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+cm_util.prototype.setCookie = function(name, value, options) {
+    // {secure: true, 'max-age': 3600}
+    if (cm_util.isEmptyObj(options)) {
+        options = {};
+    }
+
+    if (options.expires instanceof Date) {
+      options.expires = options.expires.toUTCString();
+    }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+      updatedCookie += "; " + optionKey;
+      let optionValue = options[optionKey];
+      if (optionValue !== true) {
+        updatedCookie += "=" + optionValue;
+      }
+    }
+
+    document.cookie = updatedCookie;
+}
+
 var cm_util = new cm_util();
