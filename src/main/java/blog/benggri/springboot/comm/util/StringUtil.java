@@ -75,16 +75,17 @@ public class StringUtil {
      * @param str
      */
     public static void STEP(Logger logger, Level lev, String str) {
+        String logStr = "["+logger.getName()+"]["+str+"]";
         if ( Level.ERROR.equals(lev) ) {
-            log.error("[class]["+logger.getName()+"][log]["+str+"]");
+            log.error(logStr);
         } else if ( Level.WARN.equals(lev) ) {
-            log.warn("[class]["+logger.getName()+"][log]["+str+"]");
+            log.warn(logStr);
         } else if ( Level.INFO.equals(lev) ) {
-            log.info("[class]["+logger.getName()+"][log]["+str+"]");
+            log.info(logStr);
         } else if ( Level.DEBUG.equals(lev) ) {
-            log.debug("[class]["+logger.getName()+"][log]["+str+"]");
+            log.debug(logStr);
         } else if ( Level.TRACE.equals(lev) ) {
-            log.trace("[class]["+logger.getName()+"][log]["+str+"]");
+            log.trace(logStr);
         }
     }
 
