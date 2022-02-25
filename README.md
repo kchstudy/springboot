@@ -1,14 +1,5 @@
 # STUDY Spring Boot KCH
 
-## 프로젝트 참고 문서
-
-* docs
-  * app.yml
-  * Eclipse_Plugins.md
-  * Intellij_CE_Plugins.md
-  * LocalSetting.md
-  * Security_JWT.md
-
 ## 적용
 
 * Spring-Boot
@@ -20,6 +11,8 @@
 * rest
 * postgresql
 * Spring-Quartz
+* thymeleaf
+* bootstrap
 
 ## Spring Initializr(https://start.spring.io/)
 
