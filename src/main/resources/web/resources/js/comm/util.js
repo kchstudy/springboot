@@ -6,7 +6,8 @@ function cm_util() {};
  */
 cm_util.prototype.STEP = function( str ) {
     var obj = { log : str };
-    console.log( "[STEP]["+JSON.stringify(obj)+"]" );
+//    console.log('arguments.callee.caller.toString()::'+arguments.callee.caller.toString());
+    console.log( JSON.stringify(obj) );
 };
 
 /**

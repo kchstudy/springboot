@@ -3,18 +3,12 @@ $('#btn_login').on('click', function(e) {
         cm_util.STEP('필수값확인');
         return;
     }
-    axios({
-         method: 'post'
-        ,url   : '/auth/login'
-        ,data  : {
-             usrId     : $('#usr_id').val()
-            ,encUsrPwd : $('#usr_pwd').val()
+    cm_axios.exec(
+         '/auth/login'
+        ,{ usrId     : $('#usr_id').val()
+          ,encUsrPwd : $('#usr_pwd').val()
         }
-    })
-    .then(function(res) {
-        cm_util.STEP(res);
-    })
-    .catch(function(err) {
-        cm_util.STEP(err);
-    });
+        ,cm_util.STEP
+        ,cm_util.STEP
+    );
 });

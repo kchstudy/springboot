@@ -6,6 +6,8 @@ import blog.benggri.springboot.comm.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.event.Level;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -88,6 +90,13 @@ public class ControllerAdviceConfig {
     protected ResponseEntity<Map<String, Object>> handleException(Exception e) {
         STEP(log, Level.ERROR, "handleException:"+e);
         ResEnum responseInfo = ResEnum.ERROR;
+        return new ResEntity<>(new HashMap<String, Object>(), responseInfo, e.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<Map<String, Object>> authenticationException(AuthenticationException e) {
+        STEP(log, Level.ERROR, "authenticationException:"+e);
+        ResEnum responseInfo = ResEnum.UNAUTHORIZED;
         return new ResEntity<>(new HashMap<String, Object>(), responseInfo, e.getMessage());
     }
 
