@@ -24,7 +24,7 @@ public class UsrController {
     @Autowired
     private UsrService usrService;
 
-    @RequestMapping(value="getUsrInfo.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="getUsrInfo", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity getUsrInfo(
         HttpServletRequest request,
         @RequestBody UsrInfoReqVo vo
@@ -33,7 +33,7 @@ public class UsrController {
         return new ResEntity(result, ResEnum.SUCCESS);
     }
 
-    @RequestMapping(value="updateUsrInfo.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="updateUsrInfo", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity updateUsrInfo(
         HttpServletRequest request,
         @RequestBody UpdateUsrInfoReqVo vo
@@ -42,7 +42,7 @@ public class UsrController {
         return new ResEntity(result, ResEnum.SUCCESS);
     }
 
-    @RequestMapping(value="resetUsrPwd.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="resetUsrPwd", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity resetUsrPwd(
         HttpServletRequest request,
         @RequestBody ResetUsrPwdReqVo vo

@@ -22,7 +22,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @RequestMapping(value="signup.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="signup", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity signup(
             HttpServletRequest request,
             @RequestBody SignupReqVo req
@@ -31,7 +31,7 @@ public class AuthController {
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }
 
-    @RequestMapping(value="login.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="login", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity login(
             HttpServletRequest request,
             @RequestBody LoginReqVo req
@@ -40,7 +40,7 @@ public class AuthController {
         return new ResEntity<>(result, ResEnum.SUCCESS);
     }
 
-    @RequestMapping(value="reissue.do", method= RequestMethod.POST, produces="application/json; charset=utf8")
+    @RequestMapping(value="reissue", method= RequestMethod.POST, produces="application/json; charset=utf8")
     public ResponseEntity reissue(
             HttpServletRequest request,
             @RequestBody TokenReqVo voTokenReq
