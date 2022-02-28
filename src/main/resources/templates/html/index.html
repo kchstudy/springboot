@@ -6,19 +6,19 @@
 <link href="/resources/css/index.css" rel="stylesheet">
 <!-- Custom CSS :: END -->
 
-<body class="text-center">
+<body>
 
-    <main class="form-signin">
+    <div class="form-signin">
         <!--<img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
         <h1 class="h3 mb-3 fw-normal">Benggri Spring Boot</h1>
 
         <div class="form-floating">
-            <input type="text" id="usr_id" class="form-control" placeholder="사용자 ID">
-            <label for="usr_id">사용자 ID</label>
+            <input type="text" id="usr_id" class="form-control" placeholder="ID">
+            <label for="usr_id">ID</label>
         </div>
         <div class="form-floating">
-            <input type="password" id="usr_pwd" class="form-control" placeholder="비밀번호">
-            <label for="usr_pwd">비밀번호</label>
+            <input type="password" id="usr_pwd" class="form-control" placeholder="Password">
+            <label for="usr_pwd">Password</label>
         </div>
 
         <div class="checkbox mb-3">
@@ -26,18 +26,20 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <input type="button" id="btn_login" class="w-100 btn btn-lg btn-primary" value="로그인"/>
+        <input type="button" id="btn_login" class="w-100 btn btn-lg btn-primary" value="Sign In"/>
 
         <p>
-            <a href="javascript:void(0);">회원가입</a>
+            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal_sing_up">Sign Up</a>
         </p>
 
         <p class="mt-5 mb-3 text-muted">&copy; Created by the Benggri Study Team</p>
-    </main>
+    </div>
 
     <!-- Custom js :: START -->
     <script src="/resources/js/index.js"></script>
     <!-- Custom js :: END -->
+
+    <div th:replace="/html/sign_up"></div>
 
 </body>
 </html>
