@@ -13,3 +13,4 @@
 * Rainbow Brackets => 괄호 기호에 색을 부여해 가독성을 높임
 * CodeGlance => 코드 미니맵 제공
 * CamelCase => [Alt]+[Shift]+[U] 문자열 카멜케이스로 변환
+* Tabnine AI Code Completion- JS Java Python TS Rust Go PHP & More => javascript 자동 완성
