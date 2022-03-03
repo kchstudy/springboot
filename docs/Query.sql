@@ -95,49 +95,50 @@ col_info as (
      and c.table_name   = (select nm from tbl_name)
 ),
 sql_template as (
-  select 'select /*  */ ' as start_txt, 1000 as order_sq, 'select' as type
+  select 'select /*  */ ' as query_str, 1000 as order_sq, 'select' as type
   union all
-  select concat('     , ', c_nm, c_nm_term, ' as ', c_nm, c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'select' as type from col_info
+  select concat('     , ', c_nm, c_nm_term, ' as ', c_nm, c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (3000 + c_ord_sq) as order_sq, 'select' as type from col_info
   union all
-  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 6000 as order_sq, 'select' as type from tbl_info
+  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as query_str, 6000 as order_sq, 'select' as type from tbl_info
   union all
-  select ' where 1=1 ' as start_txt, 7000 as order_sq, 'select' as type from tbl_info
+  select ' where 1=1 ' as query_str, 7000 as order_sq, 'select' as type from tbl_info
   union all
-  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'select' as type from col_info
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (8000 + c_ord_sq) as order_sq, 'select' as type from col_info
   union all
-  select 'update /*  */ ' as start_txt, 1000 as order_sq, 'update' as type
+  select 'update /*  */ ' as query_str, 1000 as order_sq, 'update' as type
   union all
-  select concat('       ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 1500 as order_sq, 'update' as type from tbl_info
+  select concat('       ', tbl_name, ' /* ', tbl_desc, ' */' ) as query_str, 1500 as order_sq, 'update' as type from tbl_info
   union all
-  select '   set ' as start_txt, 2000 as order_sq, 'update' as type
+  select '   set ' as query_str, 2000 as order_sq, 'update' as type
   union all
-  select concat('     , ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'update' as type from col_info
+  select concat('     , ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (3000 + c_ord_sq) as order_sq, 'update' as type from col_info
   union all
-  select ' where 1=1 ' as start_txt, 6000 as order_sq, 'update' as type from tbl_info
+  select ' where 1=1 ' as query_str, 6000 as order_sq, 'update' as type from tbl_info
   union all
-  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'update' as type from col_info
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (8000 + c_ord_sq) as order_sq, 'update' as type from col_info
   union all
-  select 'insert /*  */ ' as start_txt, 1000 as order_sq, 'insert' as type
+  select 'insert /*  */ ' as query_str, 1000 as order_sq, 'insert' as type
   union all
-  select concat('  into ', tbl_name, ' /* ', tbl_desc, ' */ (' ) as start_txt, 1500 as order_sq, 'insert' as type from tbl_info
+  select concat('  into ', tbl_name, ' /* ', tbl_desc, ' */ (' ) as query_str, 1500 as order_sq, 'insert' as type from tbl_info
   union all
-  select concat('     , ', c_nm, c_nm_term, '    /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'insert' as type from col_info
+  select concat('     , ', c_nm, c_nm_term, '    /* ', dt_type, '-', c_desc, ' */' ) as query_str, (3000 + c_ord_sq) as order_sq, 'insert' as type from col_info
   union all
-  select ') values ( ' as start_txt, 6000 as order_sq, 'insert' as type
+  select ') values ( ' as query_str, 6000 as order_sq, 'insert' as type
   union all
-  select concat('     , #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (7000 + c_ord_sq) as order_sq, 'insert' as type from col_info
+  select concat('     , #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (7000 + c_ord_sq) as order_sq, 'insert' as type from col_info
   union all
-  select ') ' as start_txt, 9000 as order_sq, 'insert' as type
+  select ') ' as query_str, 9000 as order_sq, 'insert' as type
   union all
-  select 'delete /*  */ ' as start_txt, 1000 as order_sq, 'delete' as type
+  select 'delete /*  */ ' as query_str, 1000 as order_sq, 'delete' as type
   union all
-  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 2000 as order_sq, 'delete' as type from tbl_info
+  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as query_str, 2000 as order_sq, 'delete' as type from tbl_info
   union all
-  select ' where 1=1 ' as start_txt, 3000 as order_sq, 'delete' as type
+  select ' where 1=1 ' as query_str, 3000 as order_sq, 'delete' as type
   union all
-  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'delete' as type from col_info
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (8000 + c_ord_sq) as order_sq, 'delete' as type from col_info
 )
-select * from sql_template
+--select * from sql_template
+select query_str from sql_template
 where 1=1
   and type like '%' || (select type from tbl_name) || '%'
 order by type, order_sq
