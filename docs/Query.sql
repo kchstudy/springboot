@@ -49,3 +49,96 @@ col_info as (
 )
 select * from col_info
 ;
+
+/* 테이블 주석 셀렉트 */
+select c.relname, obj_description(c.oid)
+from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on c.relnamespace=n.oid
+where c.relkind = 'r'
+and nspname = 'public'
+order by 2
+;
+and relname = '테이블명'
+;
+
+/* 쿼리 생성 */
+with tbl_name as (
+  select 'usr' as nm /* 테이블명 입력 */
+  , 'select' as type /* 쿼리 타입 */
+),
+tbl_info as (
+  select c.relname as tbl_name, obj_description(c.oid) as tbl_desc
+    from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on c.relnamespace=n.oid
+   where c.relkind = 'r'
+     and c.relname = (select nm from tbl_name)
+),
+length_info as (
+  select max(length(c.column_name)) as clen
+    from information_schema.columns c
+   where 1=1
+     and c.table_name = (select nm from tbl_name)
+),
+col_info as (
+  select c.column_name           as c_nm
+        , repeat(' ', cast(len.clen as int) - length(c.column_name)) as c_nm_term
+        , c.ordinal_position      as c_ord_sq
+        , c.udt_name              as dt_type
+        , pgd.description         as c_desc
+    from pg_catalog.pg_statio_all_tables st
+       , pg_catalog.pg_description       pgd
+       , information_schema.columns      c
+       , length_info                     len
+   where 1=1
+     and pgd.objoid     = st.relid
+     and pgd.objsubid   = c.ordinal_position
+     and c.table_schema = st.schemaname
+     and c.table_name   = st.relname
+     and c.table_name   = (select nm from tbl_name)
+),
+sql_template as (
+  select 'select /*  */ ' as start_txt, 1000 as order_sq, 'select' as type
+  union all
+  select concat('     , ', c_nm, c_nm_term, ' as ', c_nm, c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'select' as type from col_info
+  union all
+  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 6000 as order_sq, 'select' as type from tbl_info
+  union all
+  select ' where 1=1 ' as start_txt, 7000 as order_sq, 'select' as type from tbl_info
+  union all
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'select' as type from col_info
+  union all
+  select 'update /*  */ ' as start_txt, 1000 as order_sq, 'update' as type
+  union all
+  select concat('       ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 1500 as order_sq, 'update' as type from tbl_info
+  union all
+  select '   set ' as start_txt, 2000 as order_sq, 'update' as type
+  union all
+  select concat('     , ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'update' as type from col_info
+  union all
+  select ' where 1=1 ' as start_txt, 6000 as order_sq, 'update' as type from tbl_info
+  union all
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'update' as type from col_info
+  union all
+  select 'insert /*  */ ' as start_txt, 1000 as order_sq, 'insert' as type
+  union all
+  select concat('  into ', tbl_name, ' /* ', tbl_desc, ' */ (' ) as start_txt, 1500 as order_sq, 'insert' as type from tbl_info
+  union all
+  select concat('     , ', c_nm, c_nm_term, '    /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (3000 + c_ord_sq) as order_sq, 'insert' as type from col_info
+  union all
+  select ') values ( ' as start_txt, 6000 as order_sq, 'insert' as type
+  union all
+  select concat('     , #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (7000 + c_ord_sq) as order_sq, 'insert' as type from col_info
+  union all
+  select ') ' as start_txt, 9000 as order_sq, 'insert' as type
+  union all
+  select 'delete /*  */ ' as start_txt, 1000 as order_sq, 'delete' as type
+  union all
+  select concat('  from ', tbl_name, ' /* ', tbl_desc, ' */' ) as start_txt, 2000 as order_sq, 'delete' as type from tbl_info
+  union all
+  select ' where 1=1 ' as start_txt, 3000 as order_sq, 'delete' as type
+  union all
+  select concat('   and ', c_nm, c_nm_term, ' = #{', c_nm, '}', c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as start_txt, (8000 + c_ord_sq) as order_sq, 'delete' as type from col_info
+)
+select * from sql_template
+where 1=1
+  and type like '%' || (select type from tbl_name) || '%'
+order by type, order_sq
+;
