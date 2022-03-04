@@ -141,7 +141,6 @@ sql_template as (
   union all
   select concat('   and ', c_nm, c_nm_term, ' = ', binding_str, c_nm_term, ' /* ', dt_type, '-', c_desc, ' */' ) as query_str, (8000 + c_ord_sq) as order_sq, 'delete' as type from col_info
 )
---select * from sql_template
 select query_str from sql_template
 where 1=1
   and type like '%' || (select type from tbl_name) || '%'
