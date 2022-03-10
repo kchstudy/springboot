@@ -27,6 +27,8 @@ public class CheckAuthAspect {
         String menuId = (String) args[2];
         STEP(log, "token:"+token   );
         STEP(log, "menuId:"+menuId );
+        // TODO token 값을 이용한 jwt 검증 및 사용자 id 조회
+        // TODO 사용자 id 를 이용한 menuId 권한 검증
         Object result = pjp.proceed(); // 실제 컨트롤러 로직이 수행되는 구간
         return result;
     }
