@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/","/resources/**","/auth/**","/swagger/**","/swagger-resources/**","/webjars/**","/v2/api-docs","/v3/api-docs","/swagger-ui/**", "/api/v2/**", "/api/v3/**","/health" ).permitAll()
+            .antMatchers("/","/v/**","/resources/**","/auth/**","/swagger/**","/swagger-resources/**","/webjars/**","/v2/api-docs","/v3/api-docs","/swagger-ui/**", "/api/v2/**", "/api/v3/**","/health" ).permitAll()
             .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
             .and()
             .apply(new JwtSecurityConfig(tokenProvider));
