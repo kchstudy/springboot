@@ -7,13 +7,14 @@
 
     <select id="getGrpCdList" parameterType="map" resultType="map">
         select /* CodeMngDao.getGrpCdList */
-               grp_cd         /* varchar-그룹_코드 */
-             , grp_nm         /* varchar-그룹_명 */
-             , prnt_grp_cd    /* varchar-상위_그룹_코드 */
-             , use_yn         /* varchar-사용_여부 */
-             , note           /* text-비고 */
-             , reg_dt         /* timestamp-등록_일시 */
-             , chg_dt         /* timestamp-수정_일시 */
+               grp_cd               as grp_cd       /* varchar-그룹_코드 */
+             , grp_nm               as grp_nm       /* varchar-그룹_명 */
+             , prnt_grp_cd          as prnt_grp_cd  /* varchar-상위_그룹_코드 */
+             , use_yn               as use_yn       /* varchar-사용_여부 */
+             , note                 as note         /* text-비고 */
+             , reg_dt               as reg_dt       /* timestamp-등록_일시 */
+             , chg_dt               as chg_dt       /* timestamp-수정_일시 */
+             , count(grp_cd) over() as tot_cnt      /* 전체_갯수 */
           from grp_cd /* 공통_그룹_코드 */
          where 1=1
         <if test=' grp_cd != null and grp_cd != "" '>
@@ -27,6 +28,10 @@
         </if>
         <if test=' use_yn != null and use_yn != "" '>
            and use_yn      = #{use_yn}      /* varchar-사용_여부 */
+        </if>
+         order by grp_cd
+        <if test=' page != "" and page != null' >
+        offset (cast (#{page.page_no} as numeric)-1 ) * cast(#{page.cnt_per_page} as numeric) limit cast (#{page.cnt_per_page} as numeric)
         </if>
     </select>
 
@@ -85,15 +90,16 @@
 
     <select id="getCdList" parameterType="map" resultType="map">
         select /* CodeMngDao.getCdList */
-               grp_cd                 /* varchar-그룹_코드 */
-             , cd                     /* varchar-코드 */
-             , cd_nm                  /* varchar-코드_명 */
-             , cd_v                   /* varchar-코드_값 */
-             , note                   /* text-비고 */
-             , sq                     /* numeric-순번 */
-             , use_yn                 /* varchar-사용_여부 */
-             , reg_dt                 /* timestamp-등록_일시 */
-             , chg_dt                 /* timestamp-수정_일시 */
+               grp_cd           as grp_cd  /* varchar-그룹_코드 */
+             , cd               as cd      /* varchar-코드 */
+             , cd_nm            as cd_nm   /* varchar-코드_명 */
+             , cd_v             as cd_v    /* varchar-코드_값 */
+             , note             as note    /* text-비고 */
+             , sq               as sq      /* numeric-순번 */
+             , use_yn           as use_yn  /* varchar-사용_여부 */
+             , reg_dt           as reg_dt  /* timestamp-등록_일시 */
+             , chg_dt           as chg_dt  /* timestamp-수정_일시 */
+             , count(cd) over() as tot_cnt /* 전체_갯수 */
           from cd /* 공통_코드 */
          where 1=1
            and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
@@ -114,6 +120,10 @@
         </if>
         <if test=' use_yn != null and use_yn != "" '>
            and use_yn = #{use_yn}              /* varchar-사용_여부 */
+        </if>
+         order by grp_cd, sq
+        <if test=' page != "" and page != null' >
+        offset (cast (#{page.page_no} as numeric)-1 ) * cast(#{page.cnt_per_page} as numeric) limit cast (#{page.cnt_per_page} as numeric)
         </if>
     </select>
 

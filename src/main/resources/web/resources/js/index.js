@@ -12,12 +12,16 @@ $('#btn_login').on('click', function(e) {
         return false;
     }
 
-    cm_axios.exec(
+    cm_callsvc.exec(
          '/auth/login'
         ,{ usrId     : $('#usr_id').val()
           ,encUsrPwd : $('#usr_pwd').val()
         }
-        ,cm_util.STEP
+        ,function(result) {
+            cm_util.setSession('t'     , result.data.access_token );
+            cm_util.setSession('ft'    , result.data.refresh_token);
+            cm_util.setSession('usr_id', result.data.usr_id       );
+        }
         ,cm_util.STEP
     );
 });

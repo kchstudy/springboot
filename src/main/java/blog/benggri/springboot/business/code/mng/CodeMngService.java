@@ -17,6 +17,8 @@ public class CodeMngService {
     private CodeMngDao codeMngDao;
 
     public Map<String, Object> getGrpCdList(Map<String, Object> prmMap) {
+        String prmString[] = {"page:paging 처리 객체"};
+        checkParam(prmMap, prmString);
         return MapBuilder.createInstance()
                          .add("data", codeMngDao.getGrpCdList(prmMap))
                          .toMap();
@@ -55,7 +57,7 @@ public class CodeMngService {
     }
 
     public Map<String, Object> getCdList(Map<String, Object> prmMap) {
-        String prmString[] = {"grp_cd:그룹_코드"};
+        String prmString[] = {"grp_cd:그룹_코드","page:paging 처리 객체"};
         checkParam(prmMap, prmString);
         return MapBuilder.createInstance()
                          .add("data", codeMngDao.getCdList(prmMap))
