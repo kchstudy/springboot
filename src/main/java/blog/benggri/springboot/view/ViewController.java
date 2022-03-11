@@ -23,7 +23,8 @@ public class ViewController {
     @RequestMapping(value="/v/{menu_id}", method= RequestMethod.GET)
     public String view(
             HttpServletRequest request,
-            @RequestParam(value="t") String t,
+            @RequestParam(value="t")       String t,
+            @RequestParam(value="usr_id")  String usr_id,
             @PathVariable(value="menu_id") String menu_id
     ) {
 

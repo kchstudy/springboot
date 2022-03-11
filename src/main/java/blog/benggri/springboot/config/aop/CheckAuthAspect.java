@@ -32,7 +32,7 @@ public class CheckAuthAspect {
     private final TokenProvider tokenProvider;
 
     @Around("execution(* blog.benggri.springboot.view.ViewController.view(..))")
-    public Object logging(ProceedingJoinPoint pjp) throws Throwable {
+    public Object checkAuth(ProceedingJoinPoint pjp) throws Throwable {
         Object[] args = pjp.getArgs();
         StringBuilder sb = new StringBuilder();
         for (Object arg : args) {
@@ -40,18 +40,18 @@ public class CheckAuthAspect {
         }
         HttpServletRequest request = (HttpServletRequest) args[0];
         String token  = (String) args[1];
-        String menuId = (String) args[2];
-        STEP(log, "token:"+token   );
-        STEP(log, "menuId:"+menuId );
-        // TODO token 값을 이용한 jwt 검증 및 사용자 id 조회
-        STEP(log, "1. Refresh Token 검증");
+        String usrId  = (String) args[2];
+
         if (!tokenProvider.validateToken(token)) {
-            throw new CustomException("유효하지 않은 Token");
+            return "redirect:/";
         }
 
         Authentication authentication = tokenProvider.getAuthentication(token);
-        String usrId = authentication.getName();
-        // TODO 사용자 id 를 이용한 menuId 권한 검증
+        String tokenUsrId = authentication.getName();
+        if ( !tokenUsrId.equals(usrId) ) {
+            return "redirect:/";
+        }
+
         Object result = pjp.proceed(); // 실제 컨트롤러 로직이 수행되는 구간
         return result;
     }
