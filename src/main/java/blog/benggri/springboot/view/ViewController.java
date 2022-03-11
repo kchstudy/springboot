@@ -1,6 +1,8 @@
 package blog.benggri.springboot.view;
 
+import blog.benggri.springboot.comm.util.MapBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Controller
 public class ViewController {
+
+    @Autowired
+    private ViewService viewService;
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String index(
@@ -28,7 +33,11 @@ public class ViewController {
             @PathVariable(value="menu_id") String menu_id
     ) {
 
-        return "html/index";
+        String result = viewService.getViewPath(MapBuilder.createInstance()
+                                                          .add( "usr_id"  , usr_id  )
+                                                          .add( "menu_id" , menu_id )
+                                                          .toMap());
+        return "html/"+result;
     }
 
 }

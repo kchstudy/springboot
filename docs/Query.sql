@@ -27,6 +27,12 @@ and   c.table_name   = 'cd'
 with tbl_name as (
   select 'usr' as nm /* 테이블명 입력 */
 ),
+tbl_info as (
+  select c.relname as tbl_nm, obj_description(c.oid) as tbl_desc
+    from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on c.relnamespace=n.oid
+   where c.relkind = 'r'
+     and relname = (select nm from tbl_name)
+),
 length_info as (
   select max(length(c.column_name)) as clen
     from information_schema.columns c
@@ -35,7 +41,7 @@ length_info as (
 ),
 col_info as (
   select '     , ' || c.column_name || repeat(' ', cast(len.clen as int) - length(c.column_name)) || ' as '
-         || c.column_name || repeat(' ', cast(len.clen as int) - length(c.column_name)) || ' /* ' || c.udt_name || '-' || pgd.description || ' */'
+         || c.column_name || repeat(' ', cast(len.clen as int) - length(c.column_name)) || ' /* ' || c.udt_name || '-' || pgd.description || ' */' as str
     from pg_catalog.pg_statio_all_tables st
        , pg_catalog.pg_description       pgd
        , information_schema.columns      c
@@ -47,7 +53,9 @@ col_info as (
      and c.table_name   = st.relname
      and c.table_name   = (select nm from tbl_name)
 )
-select * from col_info
+select concat(tbl_nm, ' /* ', tbl_desc ,' */') as str from tbl_info
+union all
+select str from col_info
 ;
 
 /* 테이블 주석 셀렉트 */

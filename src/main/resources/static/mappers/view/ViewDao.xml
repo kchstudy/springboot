@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.view.ViewDao">
+
+    <select id="getUsrMenuInfo" parameterType="map" resultType="map">
+        select /* ViewDao.getUsrMenuInfo */
+               m.menu_sq       as menu_sq       /* numeric-메뉴_순번 */
+             , u.usr_sq        as usr_sq        /* numeric-사용자_순번 */
+             , m.menu_id       as menu_id       /* varchar-메뉴_id */
+             , m.menu_nm       as menu_nm       /* varchar-메뉴_이름 */
+             , m.menu_cls      as menu_cls      /* varchar-메뉴_구분 */
+             , m.menu_path     as menu_path     /* varchar-메뉴_경로 */
+          from      menu          m /* 메뉴 */
+               join grp_menu_auth am on m.menu_sq = am.menu_sq
+               join grp_usr_auth  au on am.grp_sq = au.grp_sq
+               join usr           u  on au.usr_sq = u.usr_sq
+         where 1=1
+           and u.usr_id  = #{usr_id}
+           and m.menu_id = #{menu_id}
+         group by m.menu_sq
+                , u.usr_sq
+                , m.menu_id
+                , m.menu_nm
+                , m.menu_cls
+                , m.menu_path
+    </select>
+
+    <insert id="createUsrMenuUseH" parameterType="map" >
+        insert /* ViewDao.createUsrMenuUseH */
+          into usr_menu_use_h /* 사용자_메뉴_사용_이력 */ (
+              usr_sq                      /* numeric-사용자_순번 */
+            , menu_sq                     /* numeric-메뉴_순번 */
+        ) values (
+              cast(#{usr_sq} as numeric)  /* numeric-사용자_순번 */
+            , cast(#{menu_sq} as numeric) /* numeric-메뉴_순번 */
+        )
+    </insert>
+
+</mapper>
