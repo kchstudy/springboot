@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.benggri.springboot.business.code.mng.CodeMngDao">
+
+    <select id="getGrpCdList" parameterType="map" resultType="map">
+        select /* CodeMngDao.getGrpCdList */
+               grp_cd         /* varchar-그룹_코드 */
+             , grp_nm         /* varchar-그룹_명 */
+             , prnt_grp_cd    /* varchar-상위_그룹_코드 */
+             , use_yn         /* varchar-사용_여부 */
+             , note           /* text-비고 */
+             , reg_dt         /* timestamp-등록_일시 */
+             , chg_dt         /* timestamp-수정_일시 */
+          from grp_cd /* 공통_그룹_코드 */
+         where 1=1
+        <if test=' grp_cd != null and grp_cd != "" '>
+           and grp_cd      = #{grp_cd}      /* varchar-그룹_코드 */
+        </if>
+        <if test=' grp_nm != null and grp_nm != "" '>
+           and grp_nm      = #{grp_nm}      /* varchar-그룹_명 */
+        </if>
+        <if test=' prnt_grp_cd != null and prnt_grp_cd != "" '>
+           and prnt_grp_cd = #{prnt_grp_cd} /* varchar-상위_그룹_코드 */
+        </if>
+        <if test=' use_yn != null and use_yn != "" '>
+           and use_yn      = #{use_yn}      /* varchar-사용_여부 */
+        </if>
+    </select>
+
+    <select id="getGrpCd" parameterType="map" resultType="map">
+        select /* CodeMngDao.getGrpCd */
+               grp_cd         /* varchar-그룹_코드 */
+             , grp_nm         /* varchar-그룹_명 */
+             , prnt_grp_cd    /* varchar-상위_그룹_코드 */
+             , use_yn         /* varchar-사용_여부 */
+             , note           /* text-비고 */
+             , reg_dt         /* timestamp-등록_일시 */
+             , chg_dt         /* timestamp-수정_일시 */
+          from grp_cd /* 공통_그룹_코드 */
+         where 1=1
+           and grp_cd      = #{grp_cd}      /* varchar-그룹_코드 */
+    </select>
+
+    <insert id="createGrpCd" parameterType="map">
+        insert /* CodeMngDao.createGrpCd */
+          into grp_cd /* 공통_그룹_코드 */ (
+               grp_cd         /* varchar-그룹_코드 */
+             , grp_nm         /* varchar-그룹_명 */
+             , prnt_grp_cd    /* varchar-상위_그룹_코드 */
+             , use_yn         /* varchar-사용_여부 */
+             , note           /* text-비고 */
+        ) values (
+               #{grp_cd}      /* varchar-그룹_코드 */
+             , #{grp_nm}      /* varchar-그룹_명 */
+             , #{prnt_grp_cd} /* varchar-상위_그룹_코드 */
+             , #{use_yn}      /* varchar-사용_여부 */
+             , #{note}        /* text-비고 */
+        )
+    </insert>
+
+    <update id="updateGrpCd" parameterType="map">
+        update /* CodeMngDao.updateGrpCd */
+               grp_cd /* 공통_그룹_코드 */
+           set
+               chg_dt      = now()          /* timestamp-수정_일시 */
+             , grp_nm      = #{grp_nm}      /* varchar-그룹_명 */
+             , prnt_grp_cd = #{prnt_grp_cd} /* varchar-상위_그룹_코드 */
+             , use_yn      = #{use_yn}      /* varchar-사용_여부 */
+        <if test=' note != null and note != "" '>
+             , note        = #{note}        /* text-비고 */
+        </if>
+         where 1=1
+           and grp_cd      = #{grp_cd}      /* varchar-그룹_코드 */
+    </update>
+
+    <delete id="deleteGrpCd" parameterType="map">
+        delete /* CodeMngDao.deleteGrpCd */
+          from grp_cd /* 공통_그룹_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd} /* varchar-그룹_코드 */
+    </delete>
+
+    <select id="getCdList" parameterType="map" resultType="map">
+        select /* CodeMngDao.getCdList */
+               grp_cd                 /* varchar-그룹_코드 */
+             , cd                     /* varchar-코드 */
+             , cd_nm                  /* varchar-코드_명 */
+             , cd_v                   /* varchar-코드_값 */
+             , note                   /* text-비고 */
+             , sq                     /* numeric-순번 */
+             , use_yn                 /* varchar-사용_여부 */
+             , reg_dt                 /* timestamp-등록_일시 */
+             , chg_dt                 /* timestamp-수정_일시 */
+          from cd /* 공통_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
+        <if test=' cd != null and cd != "" '>
+           and cd     = #{cd}                  /* varchar-코드 */
+        </if>
+        <if test=' cd_nm != null and cd_nm != "" '>
+           and cd_nm  = #{cd_nm}               /* varchar-코드_명 */
+        </if>
+        <if test=' cd_v != null and cd_v != "" '>
+           and cd_v   = #{cd_v}                /* varchar-코드_값 */
+        </if>
+        <if test=' note != null and note != "" '>
+           and note   = #{note}                /* text-비고 */
+        </if>
+        <if test=' sq != null and sq != "" '>
+           and sq     = cast(#{sq} as numeric) /* numeric-순번 */
+        </if>
+        <if test=' use_yn != null and use_yn != "" '>
+           and use_yn = #{use_yn}              /* varchar-사용_여부 */
+        </if>
+    </select>
+
+    <select id="getCd" parameterType="map" resultType="map">
+        select /* CodeMngDao.getCd */
+               grp_cd                 /* varchar-그룹_코드 */
+             , cd                     /* varchar-코드 */
+             , cd_nm                  /* varchar-코드_명 */
+             , cd_v                   /* varchar-코드_값 */
+             , note                   /* text-비고 */
+             , sq                     /* numeric-순번 */
+             , use_yn                 /* varchar-사용_여부 */
+             , reg_dt                 /* timestamp-등록_일시 */
+             , chg_dt                 /* timestamp-수정_일시 */
+          from cd /* 공통_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
+           and cd     = #{cd}                  /* varchar-코드 */
+    </select>
+
+    <insert id="createCd" parameterType="map">
+        insert /* CodeMngDao.createCd */
+               into cd /* 공통_코드 */ (
+               grp_cd                 /* varchar-그룹_코드 */
+             , cd                     /* varchar-코드 */
+             , cd_nm                  /* varchar-코드_명 */
+             , cd_v                   /* varchar-코드_값 */
+             , note                   /* text-비고 */
+             , sq                     /* numeric-순번 */
+             , use_yn                 /* varchar-사용_여부 */
+        ) values (
+               #{grp_cd}              /* varchar-그룹_코드 */
+             , #{cd}                  /* varchar-코드 */
+             , #{cd_nm}               /* varchar-코드_명 */
+             , #{cd_v}                /* varchar-코드_값 */
+             , #{note}                /* text-비고 */
+             , cast(#{sq} as numeric) /* numeric-순번 */
+             , #{use_yn}              /* varchar-사용_여부 */
+        )
+    </insert>
+
+    <update id="updateCd" parameterType="map">
+        update /* CodeMngDao.updateCd */
+               cd /* 공통_코드 */
+           set
+               chg_dt = now()                  /* timestamp-수정_일시 */
+        <if test=' cd_nm != null and cd_nm != "" '>
+             , cd_nm  = #{cd_nm}               /* varchar-코드_명 */
+        </if>
+        <if test=' cd_v != null and cd_v != "" '>
+             , cd_v   = #{cd_v}                /* varchar-코드_값 */
+        </if>
+        <if test=' note != null and note != "" '>
+             , note   = #{note}                /* text-비고 */
+        </if>
+        <if test=' sq != null and sq != "" '>
+             , sq     = cast(#{sq} as numeric) /* numeric-순번 */
+        </if>
+        <if test=' use_yn != null and use_yn != "" '>
+             , use_yn = #{use_yn}              /* varchar-사용_여부 */
+        </if>
+         where 1=1
+           and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
+           and cd     = #{cd}                  /* varchar-코드 */
+    </update>
+
+    <delete id="deleteCd" parameterType="map">
+        delete /* CodeMngDao.deleteCd */
+          from cd /* 공통_코드 */
+         where 1=1
+           and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
+           and cd     = #{cd}                  /* varchar-코드 */
+    </delete>
+
+</mapper>
