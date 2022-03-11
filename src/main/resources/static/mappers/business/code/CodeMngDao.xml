@@ -160,22 +160,14 @@
                cd /* 공통_코드 */
            set
                chg_dt = now()                  /* timestamp-수정_일시 */
-        <if test=' cd_nm != null and cd_nm != "" '>
              , cd_nm  = #{cd_nm}               /* varchar-코드_명 */
-        </if>
-        <if test=' cd_v != null and cd_v != "" '>
              , cd_v   = #{cd_v}                /* varchar-코드_값 */
-        </if>
+             , sq     = cast(#{sq} as numeric) /* numeric-순번 */
+             , use_yn = #{use_yn}              /* varchar-사용_여부 */
         <if test=' note != null and note != "" '>
              , note   = #{note}                /* text-비고 */
         </if>
-        <if test=' sq != null and sq != "" '>
-             , sq     = cast(#{sq} as numeric) /* numeric-순번 */
-        </if>
-        <if test=' use_yn != null and use_yn != "" '>
-             , use_yn = #{use_yn}              /* varchar-사용_여부 */
-        </if>
-         where 1=1
+        where 1=1
            and grp_cd = #{grp_cd}              /* varchar-그룹_코드 */
            and cd     = #{cd}                  /* varchar-코드 */
     </update>
