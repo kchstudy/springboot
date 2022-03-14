@@ -18,13 +18,13 @@
           from grp_cd /* 공통_그룹_코드 */
          where 1=1
         <if test=' grp_cd != null and grp_cd != "" '>
-           and grp_cd      = #{grp_cd}      /* varchar-그룹_코드 */
+           and grp_cd      like '%' || #{grp_cd} || '%'      /* varchar-그룹_코드 */
         </if>
         <if test=' grp_nm != null and grp_nm != "" '>
-           and grp_nm      = #{grp_nm}      /* varchar-그룹_명 */
+           and grp_nm      like '%' || #{grp_nm} || '%'      /* varchar-그룹_명 */
         </if>
         <if test=' prnt_grp_cd != null and prnt_grp_cd != "" '>
-           and prnt_grp_cd = #{prnt_grp_cd} /* varchar-상위_그룹_코드 */
+           and prnt_grp_cd like '%' || #{prnt_grp_cd} || '%' /* varchar-상위_그룹_코드 */
         </if>
         <if test=' use_yn != null and use_yn != "" '>
            and use_yn      = #{use_yn}      /* varchar-사용_여부 */

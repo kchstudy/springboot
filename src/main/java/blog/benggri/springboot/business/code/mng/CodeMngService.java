@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import static blog.benggri.springboot.comm.util.ParamUtil.checkParam;
+import static blog.benggri.springboot.comm.util.StringUtil.isEmptyObj;
+import static blog.benggri.springboot.comm.util.StringUtil.nvl;
 
 @Slf4j
 @Service
@@ -19,8 +22,14 @@ public class CodeMngService {
     public Map<String, Object> getGrpCdList(Map<String, Object> prmMap) {
         String prmString[] = {"page:paging 처리 객체"};
         checkParam(prmMap, prmString);
+        List<Map<String, Object>> data = codeMngDao.getGrpCdList(prmMap);
+        String tot_cnt = "0";
+        if ( !isEmptyObj(data) ) {
+            tot_cnt = nvl(data.get(0).get("tot_cnt"), "0");
+        }
         return MapBuilder.createInstance()
-                         .add("data", codeMngDao.getGrpCdList(prmMap))
+                         .add("data"   , data   )
+                         .add("tot_cnt", tot_cnt)
                          .toMap();
     }
 
@@ -59,8 +68,14 @@ public class CodeMngService {
     public Map<String, Object> getCdList(Map<String, Object> prmMap) {
         String prmString[] = {"grp_cd:그룹_코드","page:paging 처리 객체"};
         checkParam(prmMap, prmString);
+        List<Map<String, Object>> data = codeMngDao.getCdList(prmMap);
+        String tot_cnt = "0";
+        if ( !isEmptyObj(data) ) {
+            tot_cnt = nvl(data.get(0).get("tot_cnt"), "0");
+        }
         return MapBuilder.createInstance()
-                         .add("data", codeMngDao.getCdList(prmMap))
+                         .add("data"   , data   )
+                         .add("tot_cnt", tot_cnt)
                          .toMap();
     }
 

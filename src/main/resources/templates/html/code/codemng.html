@@ -40,42 +40,30 @@
                         <button type="button" class="btn btn-secondary" id="btn_find_grp_cd">검색</button>
                     </div>
                 </div>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col">공통코드</th>
+                            <th class="col">그룹명</th>
+                            <th class="col">상위그룹코드</th>
+                            <th class="col">사용여부</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grp_cd_list">
+                    </tbody>
+                </table>
+<!--
                 <div class="row mb-3 border-bottom border-primary">
                     <div class="col-sm-2 text-center"><p class="fw-bold">공통코드</p></div>
                     <div class="col-sm-3 text-center"><p class="fw-bold">그룹명</p></div>
                     <div class="col-sm-2 text-center"><p class="fw-bold">상위그룹코드</p></div>
                     <div class="col-sm-1 text-center"><p class="fw-bold">사용여부</p></div>
                 </div>
-                <div class="row mb-3" id="grp_cd_list">
-                    <div class="col-sm-2 text-center">공통코드</div>
-                    <div class="col-sm-3 text-center">그룹명</div>
-                    <div class="col-sm-2 text-center">상위그룹코드</div>
-                    <div class="col-sm-1 text-center">사용여부</div>
+                <div class="row mb-3" id="grp_cd_list" style="height: 210px;overflow-y:scroll;">
                 </div>
-
-                <div class="row mb-3 cm_pager" id="grp_cd_pager">
-<!--
-                    <div class="col-sm-10">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-sm-2">
-                        <select class="form-select" id="grp_cd_page_cnt">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
 -->
+                <div class="row mb-3 cm_pager" id="grp_cd_pager">
                 </div>
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -126,28 +114,6 @@
                 </div>
 
                 <div class="row mb-3 cm_pager" id="cd_pager">
-<!--
-                    <div class="col-sm-10">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-sm-2">
-                        <select class="form-select" id="cd_page_cnt">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
--->
                 </div>
 
             </main>

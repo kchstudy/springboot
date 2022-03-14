@@ -7,15 +7,14 @@ cm_pager.prototype.init = function( id, fn_search ) {
         +'        <nav>'
         +'            <ul class="pagination" id="'+ id +'_pagination" >'
         +'                <li class="page-item"><a class="page-link" href="#">Previous</a></li>'
-        +'                <li class="page-item"><a class="page-link" href="#">1</a></li>'
-        +'                <li class="page-item"><a class="page-link" href="#">2</a></li>'
-        +'                <li class="page-item"><a class="page-link" href="#">3</a></li>'
+        +'                <li class="page-item active"><a class="page-link" href="#">1</a></li>'
         +'                <li class="page-item"><a class="page-link" href="#">Next</a></li>'
         +'            </ul>'
         +'        </nav>'
         +'    </div>'
         +'    <div class="col-sm-2">'
         +'        <select class="form-select" id="'+id+'_page_cnt">'
+        +'            <option value="5">5</option>'
         +'            <option value="10">10</option>'
         +'            <option value="20">20</option>'
         +'            <option value="30">30</option>'
@@ -26,7 +25,7 @@ cm_pager.prototype.init = function( id, fn_search ) {
     );
     $('#'+id+'_page_cnt').unbind('change');
     $('#'+id+'_page_cnt').on('change', function(e) {
-        console.log(id);
+        fn_search(1);
     });
 }
 
@@ -100,7 +99,35 @@ cm_pager.prototype.paginate = function( id, fn_search, tot_cnt, current_page, pa
     }
 
     var pageObj = cm_pager.calcPage(Number(tot_cnt), Number(current_page), Number(page_per_cnt), Number(cm_util.nvl(max_page,'10')));
+    var preHtml  = '<li class="page-item"><a class="page-link" id="'+id+'_page_pre" href="javascript:void(0);">Previous</a></li>';
+    var nextHtml = '<li class="page-item"><a class="page-link" id="'+id+'_page_next" href="javascript:void(0);">Next</a></li>';
 
+    $('#'+id+'_pagination').children('.page-item').children('.page-link').unbind('click');
+    $('#'+id+'_pagination').children().remove();
+    var pagination = '';
+    pageObj.pages.forEach(function(page) {
+        pagination += '<li class="page-item';
+        if ( page == pageObj.currentPage ) {
+            pagination += ' active';
+        }
+        pagination += '"><a class="page-link" href="javascript:void(0);" id="'+id+'_page_'+page+'" >'+page+'</a></li>';
+    });
+    $('#'+id+'_pagination').append(preHtml+pagination+nextHtml);
+    pageObj.pages.forEach(function(page) {
+        $('#'+id+'_page_'+page).on('click', function(e) {
+            fn_search(page);
+        });
+    });
+    if ( pageObj.currentPage > 1 ) {
+        $('#'+id+'_page_pre').on('click', function(e) {
+            fn_search(pageObj.currentPage-1);
+        });
+    }
+    if ( pageObj.currentPage != pageObj.totalPages ) {
+        $('#'+id+'_page_next').on('click', function(e) {
+            fn_search(pageObj.currentPage+1);
+        });
+    }
 }
 
 var cm_pager = new cm_pager();
