@@ -29,12 +29,15 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="grp_cd_prnt_grp_cd" placeholder="상위그룹코드" value="" required="">
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <select class="form-select" id="grp_cd_use_yn">
                             <option value="">사용여부</option>
                             <option value="Y">Y</option>
                             <option value="N">N</option>
                         </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-secondary" id="btn_find_grp_cd">검색</button>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom border-primary">
@@ -50,7 +53,8 @@
                     <div class="col-sm-1 text-center">사용여부</div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3 cm_pager" id="grp_cd_pager">
+<!--
                     <div class="col-sm-10">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
@@ -71,6 +75,7 @@
                             <option value="100">100</option>
                         </select>
                     </div>
+-->
                 </div>
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -80,6 +85,27 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary">등록</button>
                             <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
                         </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="cd_grp_cd" placeholder="코드" value="" required="">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="cd_cd_nm" placeholder="코드명" value="" required="">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="cd_cd_v" placeholder="코드값" value="" required="">
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-select" id="cd_use_yn">
+                            <option value="">사용여부</option>
+                            <option value="Y">Y</option>
+                            <option value="N">N</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-secondary" id="btn_find_cd">검색</button>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom border-primary">
@@ -99,7 +125,8 @@
                     <div class="col-sm-1 text-center">사용_여부</div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3 cm_pager" id="cd_pager">
+<!--
                     <div class="col-sm-10">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
@@ -120,6 +147,7 @@
                             <option value="100">100</option>
                         </select>
                     </div>
+-->
                 </div>
 
             </main>
